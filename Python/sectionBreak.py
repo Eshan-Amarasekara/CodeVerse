@@ -1,4 +1,5 @@
-def sectionBreak():
+
+def sectionBreak(img):
 
     #import open cv
     import cv2
@@ -9,15 +10,15 @@ def sectionBreak():
     project = rf.workspace("university-of-westminster-snot2").project("object-detection-meopq")
     model = project.version(12).model
     # infer on a local image
-    locationDic= (model.predict("image.png", confidence=40, overlap=30).json())
+    locationDic= (model.predict(img, confidence=40, overlap=30).json())
 
     locationList = locationDic["predictions"]
     # visualize your prediction
-    model.predict("image.png", confidence=40, overlap=30).save("prediction.jpg")
+    model.predict(img, confidence=40, overlap=30).save("prediction.jpg")
 
 
 
-    image = cv2.imread("image.png")
+    image = cv2.imread(img)
     sectionList=[]
     for i in range((len(locationList))):
         Dictionary =locationList[i]
@@ -46,17 +47,16 @@ def sectionBreak():
         file= open("all.txt", "a+")
         file.write(str(Dictionary) + "\n")
         file.close()
-        cv2.waitKey(0)
         cv2.destroyAllWindows()
 
 def imageHeight():
     import cv2
-    image = cv2.imread("image.png")
+    image = cv2.imread("Uimage.png")
     height=image.shape[0]
     return height
 
 def imageWidth():
     import cv2
-    image = cv2.imread("image.png")
+    image = cv2.imread("Uimage.png")
     width=image.shape[1]
     return width
