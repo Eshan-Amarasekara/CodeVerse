@@ -88,8 +88,8 @@ const PhotoUploader = () => {
       >
         {loading ? (
           <div className="flex items-center justify-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-500 border-t-2 border-gray-400"></div>
-            <span className="ml-2 text-green-500">Uploading...</span>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-200 border-t-2 "></div>
+            <span className="ml-2 text-green-200">Uploading...</span>
           </div>
         ) : (
           'Upload'
