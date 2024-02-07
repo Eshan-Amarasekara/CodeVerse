@@ -1,0 +1,17 @@
+names:
+- Button
+- Card
+- Footer
+- Heading 6
+- Navigation Bar
+- Paragraph
+nc: 6
+roboflow:
+  license: CC BY 4.0
+  project: object-detection-meopq
+  url: https://universe.roboflow.com/university-of-westminster-snot2/object-detection-meopq/dataset/12
+  version: 12
+  workspace: university-of-westminster-snot2
+test: ../test/images
+train: object-Detection-12/train/images
+val: object-Detection-12/valid/images
