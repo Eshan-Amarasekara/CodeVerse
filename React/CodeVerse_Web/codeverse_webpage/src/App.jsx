@@ -11,7 +11,8 @@ import {
   Education,
   PhotoUploader,
   EducationMode,
-  BusinessMode
+  BusinessMode,
+  UploadImageForm
 } from './components';
 
 const App = () => (
@@ -30,6 +31,7 @@ const App = () => (
                 <Education />
                 <Business />
                 <PhotoUploader />
+                <UploadImageForm/>
                 <Testimonials />
                 <Footer />
               </div>

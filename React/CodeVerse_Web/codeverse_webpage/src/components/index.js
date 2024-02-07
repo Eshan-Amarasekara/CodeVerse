@@ -10,6 +10,7 @@ import PhotoUploader from "./PhotoUploader";
 import EducationMode from "./EducationMode";
 import BusinessMode from "./BusinessMode";
 import CodeEditor from "./CodeEditor";
+import UploadImageForm from "./UploadImageForm";
 
 export {
   Navbar,
@@ -24,4 +25,5 @@ export {
   EducationMode,
   BusinessMode,
   CodeEditor,
+  UploadImageForm
 };
