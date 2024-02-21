@@ -1,0 +1,174 @@
+.section-white {
+  background: #fff;
+  padding: 70px 0;
+}
+.team-item {
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)); /* Adjust alpha for transparency */
+  text-align: center;
+  margin: 20px 0;
+  padding: 50px 20px 40px 20px;
+  border-radius: 8px 8px;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-trasistion: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  height: 95%;
+}
+
+.team-item h3 {
+  margin: 20px 0 1px !important;
+  color: #454545;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+.section-subtitles {
+  white-space: pre-line;
+}
+.section-title {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.team-item:hover h3 {
+  color: #ddd;
+}
+.team-info {
+  display: block;
+  margin-bottom: 0;
+}
+.team-info p {
+  color: #656565;
+}
+.team-info ::after {
+  background: #97a032;
+  background: -webkit-linear-gradient(135deg, #6b026b 0%, #985bef);
+
+  background: -o-linear-gradient(135deg, #6b026b 0%, #985bef 100%);
+  background: -moz-linear-gradient(135deg, #6b026b 0%, #985bef 100%);
+  background: linear-gradient(135deg, #6b026b 0%, #985bef 100%);
+  display: inline-block;
+  vertical-align: middle;
+  content: "";
+  width: 50px;
+  height: 3px;
+  margin-top: -20px;
+}
+.team-img {
+  max-height: 140px;
+  padding: 6px 6px;
+  margin-right: 22px;
+  background-color: #dedede;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+ul.team-icon {
+  margin-top: 25px;
+}
+ul.team-icon li {
+  display: inline-block;
+  margin: 0 3px;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-trasistion: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+
+ul.team-icon li {
+  margin: 0;
+  display: inline-block;
+  padding: 8px 8px;
+  width: 34px;
+  height: 34px;
+  font-size: 18px;
+  line-height: 18px;
+  background-color: #fff;
+  border-radius: 50%;
+  color: #fff;
+}
+
+ul.team-icon li a.dribble {
+  background-color: #4099ff;
+}
+.last-card {
+  margin-left: 150px;
+}
+.italic-text {
+  font-style: italic;
+  color: #4c4b4b;
+}
+/* Add a hover effect for team items */
+.team-item:hover {
+  background: linear-gradient(145deg, #8383838a, #262626af);
+  color: white;
+}
+
+/* Style for team icons */
+ul.team-icon li {
+  margin: 0;
+  display: inline-block;
+  padding: 8px;
+  width: 34px;
+  height: 34px;
+  font-size: 18px;
+  line-height: 18px;
+  background-color: #fff;
+  border-radius: 50%;
+  color: #000; /* Change icon color */
+  text-align: center;
+}
+
+/* Add hover effect for team icons */
+ul.team-icon li:hover {
+  background-color: #ccc;
+  color: #fff;
+}
+
+/* Adjust spacing for team icons */
+ul.team-icon {
+  margin-top: 25px;
+  margin-bottom: 20px; /* Add some space at the bottom */
+}
+
+/* Style for social media icons */
+.social-media-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+/* Add hover effect for social media icons */
+.social-media-icon:hover {
+  opacity: 0.8; /* Reduce opacity on hover */
+}
+
+/* Style for the last card */
+.last-card {
+  margin-left: 150px;
+}
+
+/* Add more space between the last card and the previous cards */
+.last-card + .team-item {
+  margin-top: 40px;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+  .team-item {
+    padding: 30px 15px 20px 15px;
+    margin-bottom: 15px; /* Add margin-bottom to separate team items on mobile */
+  }
+
+  .last-card {
+    margin-left: 0;
+  }
+
+  /* Adjustments for smaller screens */
+  .section-white {
+    padding: 50px 0;
+  }
+}
