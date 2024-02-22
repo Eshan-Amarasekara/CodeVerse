@@ -62,10 +62,10 @@ def upload_file():
 def run():
     f = open('fullCode.json')
     data = json.load(f)
-    return data['fullCode']
+    return data['me']
 
-@app.route('/me')
-def members():
+@app.route('/me',methods=['GET'])
+def me():
     htmlCode ={"me":run()}
     return htmlCode
 
