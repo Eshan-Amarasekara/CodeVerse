@@ -133,29 +133,30 @@ class CodeGen:
                 continue
 
             if Class1 == "Navigation Bar":
-                Nav_text = Dict["text"][0].split()
+                Nav_text = Dict["text0"]
                 htmlCodeList.append("         " + generate_tag(Class1) + " class = " +"NavigationBar" + str(tagNumber) + ">")
                 for text in range(len(Nav_text)):
                     htmlCodeList.append("             " + Inner_Open_Tag(Class1)+">" + str(Nav_text))
                     htmlCodeList.append("             " + Inner_Close_Tag(Class1))
                 htmlCodeList.append("         " + close_tag(Class1))
+                print(htmlCodeList)
             else:
 
-                htmlCodeList.append("         " + generate_tag(Class1) + " class = " + Class1 + str(tagNumber) + ">" + str(Dict["text"][0]))
+                htmlCodeList.append("         " + generate_tag(Class1) + " class = " + Class1 + str(tagNumber) + ">" + str(Dict["text0"]))
                 for j in range(1, len(allList)):
                     Dict1 = ast.literal_eval(allList[j])
                     if Dict["x1"] < Dict1["x1"] < Dict["x2"] and Dict["y1"] < Dict1["y1"] < Dict["y2"]:
                         Class2 = Dict1["class"]
-                        htmlCodeList.append("             " + generate_tag(Class2) + " class = " + Class2 + str(tagNumber) + ">" + str(Dict1["text"][0]))
+                        htmlCodeList.append("             " + generate_tag(Class2) + " class = " + Class2 + str(tagNumber) + ">" + str(Dict1["text0"]))
 
                         htmlCodeList.append("             " + close_tag(Class2))
                 htmlCodeList.append("         " + close_tag(Class1))
-
+                print(htmlCodeList)
         basic_html_code_end()
         # print(htmlCodeList)
         open('all.txt', 'w').close()
         def fullCode():
-            return {"fullCode": htmlCodeList
+            return {"me": htmlCodeList
                     }
 
         json_object = json.dumps(fullCode(),indent=4)

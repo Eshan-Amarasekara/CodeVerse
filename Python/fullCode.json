@@ -1,5 +1,5 @@
 {
-    "fullCode": [
+    "me": [
         "<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"> <title>My First HTML Page</title> <style>",
         ".Paragraph1{",
         "     width:69.5%;",
@@ -54,18 +54,18 @@
         "</style>",
         "</head>",
         "<body>",
-        "         <div class = Card0>Teading Yun YSv liwt ohit 0ub 8 10}",
+        "         <div class = Card0>",
         "         </div>",
-        "         <div class = Card1>Api Yon Colombo mk onoka wenne ehe [awai Co brbo Gpi Ycw Iei",
-        "             <p class = Paragraph1>Api Yan Colon)Do mk onoka wenne ehe [awai (bnbo GPi Ycw",
+        "         <div class = Card1>",
+        "             <p class = Paragraph1>colombo api yan",
         "             </p>",
         "         </div>",
-        "         <div class = Card2>heading mokade 6nne Co lom b 0 9p ? , aAhal",
-        "             <p class = Paragraph2>mokade 6nne Co lom b 0 9P ? aAhal",
+        "         <div class = Card2>",
+        "             <p class = Paragraph2>colombo apiathal",
         "             </p>",
         "         </div>",
-        "         <div class = Card3>he Ilo dun 04Lp Uon Moh eA",
-        "             <p class = Paragraph3>dun oL ? Uui uoh",
+        "         <div class = Card3>",
+        "             <p class = Paragraph3>yan yah dun athi",
         "             </p>",
         "         </div>",
         "</body> </html>"
