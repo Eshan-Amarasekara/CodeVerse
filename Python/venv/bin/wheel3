@@ -1,4 +1,6 @@
-#!/Users/chamiduhimantha/PycharmProjects/check/venv/bin/python
+#!/bin/sh
+'''exec' "/Users/chamiduhimantha/Desktop/flask imaginecup/venv/bin/python" "$0" "$@"
+' '''
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -32,7 +32,7 @@ export-env {
       }
     }
 
-    let virtual_env = '/Users/chamiduhimantha/PycharmProjects/check/venv'
+    let virtual_env = '/Users/chamiduhimantha/Desktop/flask imaginecup/venv'
     let bin = 'bin'
 
     let is_windows = ($nu.os-info.family) == 'windows'
