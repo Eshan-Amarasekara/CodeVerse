@@ -16,20 +16,14 @@ const FeatureCard = ({ icon, title, content, index }) => (
       <p className="font-poppins font-normal text-dimWhite text-[16px] leading-[24px]">
         {content}
       </p>
-      
     </div>
-
-      <div className="absolute z-[0] w-[80%] h-[80%] -left-[180%] rounded-full pink__gradient top-40" />
-
-
-    
-
   </div>
   
 );
 
 const Business = () =>  (
-  <section id="features2" className={layout.section}>
+  <section id="" className={`${layout.section} flex-col relative ` }>
+    <div className="absolute z-[0] w-[80%] h-[60%] -left-[60%] rounded-full pink__gradient bottom-40" />
     <div className={layout.sectionInfo}>
       <h2 className={styles.heading2}>
         Welcome to the <br className="sm:block hidden" /> 
@@ -41,6 +35,7 @@ const Business = () =>  (
       </p>
 
       <Button styles={`mt-10`} />
+      
     </div>
 
     <div className={`${layout.sectionImg} flex-col`}>

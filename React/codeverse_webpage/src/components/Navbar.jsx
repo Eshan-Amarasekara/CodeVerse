@@ -1,16 +1,25 @@
-import { useState } from "react";
-
-import { close, logo, menu } from "../assets";
+import React, { useState } from "react";
+import { auth } from "./firebase";  // Make sure to import your Firebase configuration file
+import { close, menu } from "../assets";
 import { navLinks } from "../constants";
 
 const Navbar = () => {
-  const [active, setActive] = useState("Home");
+  const [active, setActive] = useState("/Home");
   const [toggle, setToggle] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      // Redirect to the login page after successful logout
+      window.location.href = "/login";
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   return (
     <nav className="w-full flex py-4 justify-between items-center navbar">
-      <span className="text-gradient text-4xl font-bold">CODEVERSE</span>{" "}
-
+      <span className="text-gradient text-4xl font-bold">CODEVERSE</span>
 
       <ul className="list-none sm:flex hidden justify-end items-center flex-1">
         {navLinks.map((nav, index) => (
@@ -24,6 +33,12 @@ const Navbar = () => {
             <a href={`#${nav.id}`}>{nav.title}</a>
           </li>
         ))}
+        <li
+          className="font-poppins font-normal cursor-pointer text-[16px] text-dimWhite"
+          onClick={handleLogout}
+        >
+          <a href="#logout" >Logout</a>
+        </li>
       </ul>
 
 {/*mobile view menu option and close button*/}

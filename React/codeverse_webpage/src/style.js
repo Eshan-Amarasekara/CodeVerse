@@ -14,7 +14,15 @@ const styles = {
 
   marginX: "sm:mx-16 mx-6",
   marginY: "sm:my-16 my-6",
+
+    container: "relative w-full h-full",
+  padding: "sm:px-16 px-6 sm:py-16 py-6",
+  box: "w-[20px] h-[20px] border-[1px] border-transparent",
+
+  videoBackground: "absolute top-0 left-0 object-cover w-full h-full"
+
 };
+
 
 export const layout = {
   section: `flex md:flex-row flex-col ${styles.paddingY}`,
