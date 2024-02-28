@@ -3,26 +3,30 @@
   padding: 70px 0;
 }
 .team-item {
-  background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)); /* Adjust alpha for transparency */
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
   text-align: center;
-  margin: 20px 0;
-  padding: 50px 20px 40px 20px;
-  border-radius: 8px 8px;
-  -webkit-transition: all 0.25s ease-in-out;
-  -moz-transition: all 0.25s ease-in-out;
-  -ms-trasistion: all 0.25s ease-in-out;
+  margin: 20px 0px;
+  padding: 200px; /* Adjusted padding for better alignment */
+  border-radius: 80px;
   transition: all 0.25s ease-in-out;
-  height: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  height: 100%; /* Adjusted height */
+}
+
+.team-image {
+  display: block;
+  margin-bottom: 10px;
 }
 
 .team-item h3 {
-  margin: 20px 0 1px !important;
+  margin: 0;
   color: #454545;
   font-size: 18px;
   font-weight: 700;
   text-transform: uppercase;
-  -webkit-transition: all 0.25s ease-in-out;
-  -moz-transition: all 0.25s ease-in-out;
   transition: all 0.25s ease-in-out;
 }
 .section-subtitles {
@@ -31,6 +35,11 @@
 .section-title {
   font-weight: 700;
   text-transform: uppercase;
+}
+
+/* Add a margin-top for team items text to create space between text and image */
+.team-item p {
+  margin-top: 10px;
 }
 
 .team-item:hover h3 {
@@ -57,15 +66,7 @@
   height: 3px;
   margin-top: -20px;
 }
-.team-img {
-  max-height: 140px;
-  padding: 6px 6px;
-  margin-right: 22px;
-  background-color: #dedede;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-}
+
 ul.team-icon {
   margin-top: 25px;
 }
@@ -105,6 +106,8 @@ ul.team-icon li a.dribble {
 .team-item:hover {
   background: linear-gradient(145deg, #8383838a, #262626af);
   color: white;
+  padding: 50px 20px 40px 20px; /* Adjust padding to cover the entire background */
+  height: 100%; /* Adjust height to cover the entire background */
 }
 
 /* Style for team icons */
@@ -156,19 +159,4 @@ ul.team-icon {
   margin-top: 40px;
 }
 
-/* Responsive styles for smaller screens */
-@media (max-width: 768px) {
-  .team-item {
-    padding: 30px 15px 20px 15px;
-    margin-bottom: 15px; /* Add margin-bottom to separate team items on mobile */
-  }
 
-  .last-card {
-    margin-left: 0;
-  }
-
-  /* Adjustments for smaller screens */
-  .section-white {
-    padding: 50px 0;
-  }
-}

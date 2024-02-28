@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar';
-import styles from '/src/style.js';
+import styles from '../style.js';
 
 
 const BusinessMode = () => {

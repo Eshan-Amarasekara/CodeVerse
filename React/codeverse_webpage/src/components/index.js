@@ -10,6 +10,10 @@ import CodeEditor from "./CodeEditor";
 import UploadImageForm from "./UploadImageForm";
 import Business from "./Business";
 import Services from "./Services";
+import ServiceTeam from "./ServiceTeam";
+import LoginPage from "./LoginPage";
+import SignupPage from "./SignupPage";
+
 
 
 export {
@@ -24,5 +28,8 @@ export {
   BusinessMode,
   CodeEditor,
   UploadImageForm,
-  Services
+  Services,
+  ServiceTeam,
+  LoginPage,
+  SignupPage
 };

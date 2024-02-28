@@ -1,6 +1,6 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import styles from './style';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import styles from "./style";
 
 import {
   Navbar,
@@ -12,27 +12,30 @@ import {
   EducationMode,
   BusinessMode,
   UploadImageForm,
-  Services
-} from './components';
+  Services,
+  ServiceTeam,
+  LoginPage,
+  SignupPage
+} from "./components";
+
+
 
 const App = () => (
   <Router>
     <div className="bg-primary w-full overflow-hidden">
-
-
       <Routes>
         <Route
           path="/"
           element={
             <div className={`bg-primary ${styles.paddingX} ${styles.flexCenter}`}>
               <div className={`${styles.boxWidth}`}>
-                <Navbar/>
-                <Hero/>
+                <Navbar />
+                <Hero />
                 <Education />
                 <Business />
-                <UploadImageForm/>
+                <UploadImageForm />
                 <Testimonials />
-                <Services/>
+                <Services />
                 <Footer />
               </div>
             </div>
@@ -40,7 +43,11 @@ const App = () => (
         />
         <Route path="/EducationMode" element={<EducationMode />} />
         <Route path="/BusinessMode" element={<BusinessMode />} />
-        
+        {/* Add the route for ServiceTeam */}
+        <Route path="/serviceteam" element={<ServiceTeam />} />
+        {/* Add the routes for the LoginPage and the SignupPage */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
     </div>
   </Router>
