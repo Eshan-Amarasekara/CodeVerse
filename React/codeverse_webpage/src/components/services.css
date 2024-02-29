@@ -2,17 +2,26 @@
   background: #fff;
   padding: 70px 0;
 }
+
+.team{
+  margin-top: 10%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+}
+
 .team-item {
   background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
   text-align: center;
-  margin: 20px 0px;
-  padding: 200px; /* Adjusted padding for better alignment */
+  margin: 20px -20px;
+  padding: 200px ; /* Adjusted padding for better alignment */
   border-radius: 80px;
   transition: all 0.25s ease-in-out;
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   align-items: center;
-  
   height: 100%; /* Adjusted height */
 }
 

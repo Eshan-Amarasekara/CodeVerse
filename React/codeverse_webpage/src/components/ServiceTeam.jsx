@@ -9,7 +9,7 @@ const ServiceTeam = () => {
                     <Navbar />
 
         <div className={`${styles.boxWidth} `}>
-          
+          <div className='team'>
             {/* Team Item 1 */}
             <div className={`w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 mb-8 ${styles.flexCenter}`}>
                 <div className="team-item p-6 rounded-lg shadow-md">
@@ -34,7 +34,7 @@ const ServiceTeam = () => {
                     className="team-image w-full mb-4 rounded-md"
                     alt="pic"
                     />
-                    <h3 className="text-lg font-bold mb-2 text-gray-700">Eshan Amarasekara</h3>
+                    <h3 className="text-lg font-bold mb-2">Eshan Amarasekara</h3>
                     <p className="text-gray-200 mb-2">Software Developer</p>
                     <p className="italic-text text-gray-300">
                     seeking innovative solutions to digital challenges, ensuring the delivery of high-quality software products.
@@ -57,7 +57,8 @@ const ServiceTeam = () => {
                     </p>
                 </div>
             </div>
-
+            </div>
+            <div className='team'>
             {/* Team Item 4 */}
             <div className={`w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 mb-8 ${styles.flexCenter}`}>
                 <div className="team-item p-6 rounded-lg shadow-md">
@@ -88,6 +89,7 @@ const ServiceTeam = () => {
                     ensuring software products meet top quality and reliability standards, leaving no detail overlooked in pursuit of perfection.
                     </p>
                 </div>
+            </div>
             </div>
         </div>
     </div>   
