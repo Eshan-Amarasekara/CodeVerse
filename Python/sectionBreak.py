@@ -54,9 +54,11 @@ def sectionBreak(img):
 
          if Dictionary["class"] != "Card":
              response = cv_client.read_in_stream(open(image2,'rb'),language='en', raw=True)
+
+
              operationLocation = response.headers["Operation-Location"]
              operation_id: object = operationLocation.split('/')[-1]
-             time.sleep(5)
+             time.sleep(6)
              result = cv_client.get_read_result(operation_id)
 
 
