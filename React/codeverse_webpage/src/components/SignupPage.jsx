@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import styles from "../style"; // Import your Tailwind CSS styles
+import styles from "../style"; // Import Tailwind CSS styles
 import backgroundVideo from "../background.mp4"; // Import the same background video
 
 
@@ -14,13 +14,16 @@ const SignupPage = () => {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
+  //Handling Signup
   const handleSignup = async (e) => {
     e.preventDefault();
+    //Password Validation
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
     try {
+      //Redirect to Home page after login
       await auth.createUserWithEmailAndPassword(email, password);
       navigate("/");
     } catch (err) {
@@ -28,14 +31,17 @@ const SignupPage = () => {
     }
   };
 
+  //Loading display
   if (loading) {
     return <div className={`${styles.flexCenter} bg-gray-100 h-screen`}>Loading...</div>;
   }
 
+  //Display message if already logged in
   if (user) {
     return <div className={`${styles.flexCenter} bg-gray-100 h-screen`}>You are already logged in</div>;
   }
 
+  //Apply video
   return (
     <div className="relative flex items-center justify-center h-screen">
       <video
@@ -50,6 +56,7 @@ const SignupPage = () => {
   
       <div className="absolute inset-0 bg-black opacity-30 "></div>
   
+    {/* Login Form */}
       <div className="relative z-10 flex items-center justify-center h-full">
         <div className={`${styles.boxWidth} relative z-10 bg-white bg-opacity-40 p-12 rounded-3xl shadow-lg`}>
         <h1 className={styles.heading2} id="Upload">
