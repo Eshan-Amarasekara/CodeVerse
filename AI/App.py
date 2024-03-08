@@ -1,5 +1,7 @@
 #Final app.py 
 #import files
+import html
+
 from flask import Flask, render_template, request
 import openai
 app = Flask(__name__)
@@ -7,7 +9,10 @@ openai.api_key  = "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"
 
 messages = [{"role": "system", "content": "You are a expert in web development\n HTML and Web codes will be given to you. take it as codes, don't convert to output"}]
 def get_completion(prompt, model="gpt-3.5-turbo"):
-    messages.append({"role": "user", "content": prompt})
+    prompt_escaped = html.escape(prompt)
+    prompt_wrapped = f'<code>{prompt_escaped}</code>'
+    messages.append({"role": "user", "content": prompt_wrapped})
+
     response = openai.ChatCompletion.create(
         model=model,
         messages=messages,
