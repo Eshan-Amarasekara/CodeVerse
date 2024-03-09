@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styles, { layout } from "../style";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";  // Make sure to import your Firebase configuration file
+import "./Styles.css";
 
 const UploadImageForm = () => {
   const [image, setImage] = useState(null);
@@ -151,7 +152,7 @@ const UploadImageForm = () => {
                 type="file"
                 name="image"
                 onChange={handleChange}
-                className="mt-1 p-4 border rounded-md w-full text-gray-50"
+                className=" mt-1 p-4 border rounded-md w-full text-gray-50"
               />
               <span className="text-red-500">{responseMsg.error}</span>
             </div>
@@ -173,16 +174,27 @@ const UploadImageForm = () => {
                   )}
                 </button>
               ) : (
-                <p className="text-white ">
-                  To upload an image, please{" "}
-                  <span className="underline cursor-pointer hover:text-purple-600" onClick={redirectToLogin}>
-                    log in
-                  </span>
-                  .
-                </p>
-              )}
+                <div className="flex flex-col items-center border border-purple-500 p-4 rounded-md">
+                    <p className="text-white py-2 text-m">
+                      To upload an image, please{" "}
+                      <span className="underline cursor-pointer hover:text-purple-600" onClick={redirectToLogin}>
+                        log in
+                      </span>
+                      .
+                    </p>
+                      <p className="text-m text-gray-400 ">
+                        Don't have an account?{" "}
+                        <a href="/signup" className="underline hover:text-purple-600">
+                          <span className="">Sign up here</span>
+                        </a>
+                      </p>
+                </div>
+                )}
             </div>
           </form>
+
+          
+
 
           {/* Mode Buttons */}
           {showButtons && (
