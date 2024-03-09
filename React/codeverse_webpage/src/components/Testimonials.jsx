@@ -10,13 +10,11 @@ const Testimonials = () => (
       <h2 className={styles.heading2}>
         Select a plan <br className="sm:block hidden" /> 
         <span className="text-gradient"> you desire</span>{" "}
-
-      </h2>
-      <div className="w-full md:mt-0 mt-6">
-        <p className={`${styles.paragraph} text-left max-w-[450px]`}>
+        <p className={`${styles.paragraph} text-left max-w-[450px] py-6`}>
           Select a plan to turn your visions into relality...
         </p>
-      </div>
+      </h2>
+
     </div>
 
     <div className="flex flex-wrap sm:justify-start justify-center w-full feedback-container relative z-[1]">
