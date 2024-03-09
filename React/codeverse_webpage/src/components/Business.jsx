@@ -23,7 +23,6 @@ const FeatureCard = ({ icon, title, content, index }) => (
 
 const Business = () =>  (
   <section id="" className={`${layout.section} flex-col relative ` }>
-    <div className="absolute z-[0] w-[80%] h-[60%] -left-[60%] rounded-full pink__gradient bottom-40" />
     <div className={layout.sectionInfo}>
       <h2 className={styles.heading2}>
         Welcome to the <br className="sm:block hidden" /> 
