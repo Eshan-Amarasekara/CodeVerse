@@ -3,9 +3,10 @@ import { auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import styles from "../style"; // Import your Tailwind CSS styles
-import backgroundVideo from "../Background2.mp4";
+import backgroundVideo from "../background.mp4";
 import { GoogleAuthProvider } from "firebase/auth";
 import GoogleLogo from '../Google.svg'; // Import the Google logo SVG file
+
 
 
 
