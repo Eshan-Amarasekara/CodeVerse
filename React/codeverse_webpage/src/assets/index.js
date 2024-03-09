@@ -11,8 +11,9 @@ import facebook from "./facebook.svg";
 import instagram from "./instagram.svg";
 import linkedin from "./linkedin.svg";
 import twitter from "./twitter.svg";
-import quotes from "./quotes.svg"
-
+import quotes from "./quotes.svg";
+import textcommand from "./text-command.svg";
+import brush from "./brush.svg";
 
 export {
   logo,
@@ -27,5 +28,7 @@ export {
   instagram,
   linkedin,
   twitter,
-  quotes
+  quotes,
+  textcommand,
+  brush
 };

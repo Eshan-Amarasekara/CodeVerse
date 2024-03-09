@@ -144,3 +144,8 @@
   color: transparent;
   background-image: linear-gradient(to right, #8e44ad, #9a65cf); /* Change these colors accordingly */
 }
+.gradient-purple {
+  filter: brightness(130%) sepia(70%) hue-rotate(315deg) saturate(200%);
+}
+
+

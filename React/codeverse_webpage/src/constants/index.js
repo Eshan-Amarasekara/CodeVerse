@@ -1,4 +1,4 @@
-import {  facebook, instagram, linkedin, twitter, send, shield, star  } from "../assets";
+import {  facebook, instagram, linkedin, twitter, send, shield, star, textcommand, brush,quotes  } from "../assets";
 
 export const navLinks = [
   {
@@ -55,14 +55,14 @@ export const features = [
 export const features2 = [
   {
     id: "feature-1",
-    icon: star,
+    icon: textcommand,
     title: "Text Command",
     content:
       "Customize the generated webpages according to user preferences",
   },
   {
     id: "feature-2",
-    icon: shield,
+    icon: brush,
     title: "Color Pallets",
     content:
       "Generate some color Pallet selection based on the user preference ",

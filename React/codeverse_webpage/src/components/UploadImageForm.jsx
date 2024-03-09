@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import styles, { layout } from "../style";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";  // Make sure to import your Firebase configuration file
-import "./Styles.css";
 
 const UploadImageForm = () => {
   const [image, setImage] = useState(null);
