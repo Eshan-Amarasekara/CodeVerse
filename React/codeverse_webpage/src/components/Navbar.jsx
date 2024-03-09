@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import { auth } from "./firebase";  // Make sure to import your Firebase configuration file
+import { auth } from "./firebase";
 import { close, menu } from "../assets";
 import { navLinks } from "../constants";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Navbar = () => {
-  const [active, setActive] = useState("/Home");
+  const [active, setActive] = useState("/");
   const [toggle, setToggle] = useState(false);
+  const [user] = useAuthState(auth);
 
   const handleLogout = async () => {
     try {
       await auth.signOut();
       // Redirect to the login page after successful logout
-      window.location.href = "/login";
+      window.location.href = "/";
     } catch (error) {
       console.error("Logout error:", error);
     }
@@ -33,15 +35,23 @@ const Navbar = () => {
             <a href={`#${nav.id}`}>{nav.title}</a>
           </li>
         ))}
-        <li
-          className="font-poppins font-normal cursor-pointer text-[16px] text-dimWhite"
-          onClick={handleLogout}
-        >
-          <a href="#logout" >Logout</a>
-        </li>
+        {user ? (
+          <li
+            className="font-poppins font-normal cursor-pointer text-[16px] text-dimWhite"
+            onClick={handleLogout}
+          >
+            <a href="#logout">Logout</a>
+          </li>
+        ) : (
+          <li
+            className="font-poppins font-normal cursor-pointer text-[16px] text-dimWhite"
+          >
+            <a href="/login">Login</a>
+          </li>
+        )}
       </ul>
 
-{/*mobile view menu option and close button*/}
+      {/* mobile view menu option and close button */}
       <div className="sm:hidden flex flex-1 justify-end items-center">
         <img
           src={toggle ? close : menu}
@@ -67,6 +77,20 @@ const Navbar = () => {
                 <a href={`#${nav.id}`}>{nav.title}</a>
               </li>
             ))}
+            {user ? (
+              <li
+                className="font-poppins font-medium cursor-pointer text-[16px] text-dimWhite"
+                onClick={handleLogout}
+              >
+                <a href="#logout">Logout</a>
+              </li>
+            ) : (
+              <li
+                className="font-poppins font-medium cursor-pointer text-[16px] text-dimWhite"
+              >
+                <a href="/login">Login</a>
+              </li>
+            )}
           </ul>
         </div>
       </div>

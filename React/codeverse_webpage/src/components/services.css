@@ -115,7 +115,6 @@ ul.team-icon li a.dribble {
 .team-item:hover {
   background: linear-gradient(145deg, #8383838a, #262626af);
   color: white;
-  padding: 50px 20px 40px 20px; /* Adjust padding to cover the entire background */
   height: 100%; /* Adjust height to cover the entire background */
 }
 
