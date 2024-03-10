@@ -6,15 +6,33 @@ from flask import Flask, json, request, jsonify
 from flask_cors import CORS
 
 from codeGen import CodeGen
-
+import html
 import os
+import openai
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
 app.secret_key = "caircocoders-ednalan"
+openai.api_key  = "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"
+
+messages = [{"role": "system", "content": "You are a expert in web development\n HTML and Web codes will be given to you. take it as codes, don't convert to output"}]
+
 
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+
+def get_completion(prompt, model="gpt-3.5-turbo"):
+    prompt_escaped = html.escape(prompt)
+    prompt_wrapped = f'<code>{prompt_escaped}</code>'
+    messages.append({"role": "user", "content": prompt_wrapped})
+
+    response = openai.ChatCompletion.create(
+        model=model,
+        messages=messages,
+        temperature=0, # this is the degree of randomness of the model's output
+    )
+    return response.choices[0].message["content"]
 
 
 def allowed_file(filename):
@@ -68,6 +86,11 @@ def run():
 def me():
     htmlCode ={"me":run()}
     return htmlCode
-
+@app.route("/get")
+def get_bot_response():
+    userText = request.args.get('msg')
+    response = get_completion(userText)
+    #return str(bot.get_response(userText))
+    return response
 if __name__ == '__main__':
     app.run(debug=True)
