@@ -19,15 +19,18 @@ const EducationMode = () => {
       .catch(error => console.error('Error fetching HTML code:', error));
   }, []);
 
-  const toggleAiHtml = () => {
-    setShowAiHtml(!showAiHtml);
+const toggleAiHtml = () => {
+  // Toggle the showAiHtml state
+  setShowAiHtml((prevShowAiHtml) => !prevShowAiHtml);
+};
 
-    // Scroll to the ai.html iframe when the button is pressed
-    if (showAiHtml || !showAiHtml) {
-      const aiHtmlIframe = document.getElementById('aiHtmlIframe');
-      aiHtmlIframe.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+useEffect(() => {
+  // Scroll to the ai.html iframe when the button is pressed
+  if (showAiHtml) {
+    const aiHtmlIframe = document.getElementById('aiHtmlIframe');
+    aiHtmlIframe.scrollIntoView({ behavior: 'smooth' });
+  }
+}, [showAiHtml]);
 
   const downloadHTML = async () => {
     try {
