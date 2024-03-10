@@ -15,7 +15,7 @@ CORS(app, supports_credentials=True)
 app.secret_key = "caircocoders-ednalan"
 openai.api_key  = "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"
 
-messages = [{"role": "system", "content": "You are a expert in web development\n HTML and Web codes will be given to you. take it as codes, don't convert to output"}]
+messages = [{"role": "system", "content": "You are a expert in web development"}]
 
 
 
@@ -86,6 +86,7 @@ def run():
 def me():
     htmlCode ={"me":run()}
     return htmlCode
+
 @app.route("/get")
 def get_bot_response():
     userText = request.args.get('msg')
