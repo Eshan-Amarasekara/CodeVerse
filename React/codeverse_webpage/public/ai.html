@@ -154,33 +154,29 @@
             }
 
             function getBotResponse() {
-                var rawText = $("#textInput").val();
-                var escapedText = escapeHtml(rawText);
-                var userHtml = '<p class="userText text-left">' + escapedText +
-                    "</p>";
-                $("#textInput").val("");
-                $("#chatbox").append(userHtml);
-                document
-                    .getElementById("userInput")
-                    .scrollIntoView({
-                        block: "start",
-                        behavior: "smooth"
-                    });
+    var rawText = $("#textInput").val();
+    var escapedText = escapeHtml(rawText);
+    var userHtml = '<p class="userText text-left">' + escapedText + "</p>";
+    $("#textInput").val("");
+    $("#chatbox").append(userHtml);
+    document.getElementById("userInput").scrollIntoView({
+        block: "start",
+        behavior: "smooth"
+    });
 
-                $.get("http://127.0.0.1:5000/get", {
-                    msg: rawText
-                }).done(function (data) {
-                    var botHtml = '<p class="botText text-left">' + data +
-                        "</p>";
-                    $("#chatbox").append(botHtml);
-                    document
-                        .getElementById("userInput")
-                        .scrollIntoView({
-                            block: "start",
-                            behavior: "smooth"
-                        });
-                });
-            }
+    $.get("http://127.0.0.1:5000/get", {
+        msg: rawText
+    }).done(function(data) {
+        var escapedData = escapeHtml(data); // Escape HTML tags in the bot's response
+        var botHtml = '<p class="botText text-left">' + escapedData + "</p>";
+        $("#chatbox").append(botHtml);
+        document.getElementById("userInput").scrollIntoView({
+            block: "start",
+            behavior: "smooth"
+        });
+    });
+}
+
 
             $("#textInput").keypress(function (e) {
                 if (e.which == 13) {
