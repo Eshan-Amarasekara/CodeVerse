@@ -68,7 +68,7 @@ const EducationMode = () => {
       <div className={`${styles.boxWidth}`}></div>
       <Navbar />
       <div className="absolute z-[0] w-[50%] h-[50%] right-0 top-0 blue__gradient" />
-      <div className="absolute z-[0] w-[50%] h-[50%] bottom-0 pink__gradient" />
+      <div className="absolute z-[0] w-[50%] h-[50%] bottom-70 pink__gradient" />
 
       {/* Buttons Container */}
       <div className={`absolute z-10 top-20 left-20 ${styles.marginX} ${styles.flexStart}`}>
@@ -113,7 +113,7 @@ const EducationMode = () => {
           width="100%"
           height="900px"
           frameBorder="0"
-          style={{ position: 'relative', zIndex: '1', top: '35px' }}
+          style={{ position: 'static', zIndex: '1', top: '35px' }}
         ></iframe>
       )}
       
