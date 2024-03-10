@@ -92,7 +92,17 @@
             font-size: 14px;
             margin-bottom: 0.5rem;
             color: black;
+            resize: vertical; /* Allow vertical resizing */
+            overflow-y: auto; /* Enable vertical scrolling */
+            height: 50px; /* Initial height, adjust as needed */
+            transition: height 1s; /* Add transition for smooth resizing */
         }
+
+        #textInput:focus {
+            height: 300px; /* Adjust the maximum height as needed */
+            transition: 1s;
+        }
+
 
         /* Send button styles */
         #sendButton {
