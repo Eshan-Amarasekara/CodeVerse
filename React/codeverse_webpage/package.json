@@ -18,7 +18,7 @@
     "axios": "^1.6.7",
     "babel-standalone": "^6.26.0",
     "firebase": "^10.8.1",
-    "node": "^21.6.2",
+    "node": "^21.7.1",
     "pixi.js": "^7.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
