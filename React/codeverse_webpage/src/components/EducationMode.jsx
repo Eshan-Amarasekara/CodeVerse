@@ -4,11 +4,10 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import styles from '../style.js';
 
-
 const EducationMode = () => {
   const [code, setCode] = useState('');
   const [copySuccess, setCopySuccess] = useState(false);
-  const [showAiHtml, setShowAiHtml] = useState(false); 
+  const [showAiHtml, setShowAiHtml] = useState(false);
 
   useEffect(() => {
     fetch('http://127.0.0.1:5000/me')
@@ -22,6 +21,12 @@ const EducationMode = () => {
 
   const toggleAiHtml = () => {
     setShowAiHtml(!showAiHtml);
+
+    // Scroll to the ai.html iframe when the button is pressed
+    if (showAiHtml || !showAiHtml) {
+      const aiHtmlIframe = document.getElementById('aiHtmlIframe');
+      aiHtmlIframe.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const downloadHTML = async () => {
@@ -29,7 +34,7 @@ const EducationMode = () => {
       const response = await fetch('http://127.0.0.1:5000/me');
       const data = await response.json();
       const htmlString = data.me.join('\n');
-      
+
       const blob = new Blob([htmlString], { type: 'text/html' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
@@ -82,7 +87,7 @@ const EducationMode = () => {
           Copy to Clipboard
         </button>
 
-      {/* New button to toggle ai.html visibility */}
+        {/* New button to toggle ai.html visibility */}
         <button onClick={toggleAiHtml} className="bg-purple-500 text-white px-4 py-2 m-2 rounded">
           Code Explainer
         </button>
@@ -91,7 +96,7 @@ const EducationMode = () => {
           <div className="text-green-500 text-sm mt-2">Copied to Clipboard successfully!</div>
         )}
       </div>
-      
+
       <iframe
         src={"/CodeEditor/codeeditor.html"}
         title="Live Code Editor"
@@ -108,7 +113,8 @@ const EducationMode = () => {
       {/* If showAiHtml is true, render the ai.html iframe */}
       {showAiHtml && (
         <iframe
-          src={"/ai.html"} 
+          id="aiHtmlIframe"  // Add an ID for easy reference
+          src={"/ai.html"}
           title="GenAI-Bot"
           width="100%"
           height="900px"
@@ -116,7 +122,6 @@ const EducationMode = () => {
           style={{ position: 'static', zIndex: '1', top: '35px' }}
         ></iframe>
       )}
-      
     </div>
   );
 };
