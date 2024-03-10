@@ -84,7 +84,7 @@ const EducationMode = () => {
 
       {/* New button to toggle ai.html visibility */}
         <button onClick={toggleAiHtml} className="bg-purple-500 text-white px-4 py-2 m-2 rounded">
-          Toggle AI.html
+          Code Explainer
         </button>
         {/* Copy success message */}
         {copySuccess && (

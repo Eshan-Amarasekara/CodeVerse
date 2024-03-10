@@ -79,9 +79,7 @@
 </head>
 <body>
 <div>
-        <h1 align="center"><b>AI-Gen ChatBot</b></h1>
-        <h4 align="center"><b>Please start your personalized interaction with the chatbot</b></h4>
-        <p align="center"><img src="static\\chatbot1.png" alt="Python-BOT" height="210" width="220"></p>
+
         <div class="boxed">
             <div>
                 <div id="chatbox">
@@ -115,7 +113,7 @@
                     .getElementById("userInput")
                     .scrollIntoView({ block: "start", behavior: "smooth" });
 
-                $.get("/get", { msg: rawText }).done(function (data) {
+                $.get("http://127.0.0.1:5000/get", { msg: rawText }).done(function (data) {
                     var botHtml = '<p class="botText"><span>' + data + "</span></p>";
                     $("#chatbox").append(botHtml);
                     document
