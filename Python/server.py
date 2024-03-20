@@ -22,7 +22,8 @@ messages = [{"role": "system", "content": "You are a expert in web development"}
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 
-def get_completion(prompt, model="gpt-3.5-turbo"):
+def get_completion(prompt, model="ft:gpt-3.5-turbo-0125:personal::91vUW2df"):
+    lines = prompt.split('.')
     prompt_escaped = html.escape(prompt)
     prompt_wrapped = f'<code>{prompt_escaped}</code>'
     messages.append({"role": "user", "content": prompt_wrapped})
@@ -30,9 +31,30 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
     response = openai.ChatCompletion.create(
         model=model,
         messages=messages,
-        temperature=0, # this is the degree of randomness of the model's output
+        temperature=0,  # this is the degree of randomness of the model's output
     )
-    return response.choices[0].message["content"]
+
+    bot_response = response.choices[0].message["content"]
+    parsed_response = bot_response.split('\n')
+    formatted_response = []
+    current_explanation = None
+
+    for line in parsed_response:
+        if line.startswith("Explanation for"):
+            if current_explanation:
+                formatted_response.append(current_explanation)
+            current_explanation = line + ":"
+        else:
+            if current_explanation:
+                current_explanation += "\n   - " + line.strip()
+            else:
+                formatted_response.append(line)
+
+    if current_explanation:
+        formatted_response.append(current_explanation)
+
+    return '\n'.join(formatted_response)
+
 
 
 def allowed_file(filename):
