@@ -1,10 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import styles from '../style.js';
+import './businessstyles.css';
 
 const BusinessMode = () => {
   const [view, setView] = useState('code');
   const [code, setCode] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (view === 'code') {
+      fetchCode();
+    }
+  }, [view]);
+
+  const fetchCode = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/business');
+      if (!response.ok) {
+        throw new Error('Failed to fetch code');
+      }
+      const data = await response.text();
+      setCode(data);
+    } catch (err) {
+      console.error('Failed to fetch code: ', err);
+      setCode('Failed to fetch code');
+    }
+  };
 
   const handleViewChange = (newView) => {
     setView(newView);
@@ -24,12 +46,39 @@ const BusinessMode = () => {
     }
   };
 
+  const executeCommand = () => {
+    setIsLoading(true);
+    const userInput = document.getElementById('userInput').value; // Assuming you have an input element with the id 'userInput'
+
+    // Sending data to the backend Flask server
+    fetch('http://127.0.0.1:5000/userinput', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ data: userInput }), // Adjust the data you want to send as needed
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to send data to server');
+        }
+        // Handle response as needed
+        console.log('Data sent successfully');
+      })
+      .catch(error => {
+        console.error('Error sending data to server:', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
   const renderView = () => {
     if (view === 'desktop') {
       return (
-        <div className={`bg-primary text-purple-500 min-h-screen flex items-center justify-center`}>
-          <div className="container mx-auto" style={{height: '600px'}}>
-            <div className="text-center">
+        <div className={`text-purple-500 flex items-center justify-center border-purple-500`} style={{ minHeight: "85vh" }}>
+          <div className="container mx-auto" style={{ height: '100%', width: '80%' }}>
+            <div className="w-100 h-200 bg-white border-4 border-gray-300 rounded-md overflow-hidden shadow-md flex justify-center align-center">
               <div dangerouslySetInnerHTML={{ __html: code }} />
             </div>
           </div>
@@ -37,25 +86,36 @@ const BusinessMode = () => {
       );
     } else if (view === 'mobile') {
       return (
-        <div className={`bg-primary text-purple-500 min-h-screen flex items-center justify-center`}>
-          <div className="container mx-auto flex justify-center items-center">
-            <div className="w-64 h-128 bg-white border items-center border-gray-300 rounded-md overflow-hidden shadow-md flex justify-center align-center" style={{width: '300px'}}>
-              <div className="w-full h-full overflow-auto" dangerouslySetInnerHTML={{ __html: code }} />
+        <div className={`text-purple-500 flex items-center justify-center border-purple-500`} style={{ minHeight: "85vh" }}>
+          <div className="container mx-auto flex justify-center items-center" style={{ height: '70%', width: '23%' }}>
+            <div className="bg-white border-4 border-gray-300 rounded-md overflow-auto shadow-md" style={{ maxHeight: '70vh', width: '100%' }}>
+              <div className="w-full" dangerouslySetInnerHTML={{ __html: code }} />
             </div>
           </div>
         </div>
       );
     } else {
       return (
-        <div className={`bg-primary text-gray-500 min-h-screen flex items-center justify-center`}>
+        <div className={"  text-gray-500 flex flex-col items-center justify-center border-purple-500"} style={{ minHeight: "85vh" }}>
           <div className="container mx-auto">
             <div className="text-center">
-              <textarea className="w-full h-96 bg-white border border-gray-300" value={code} onChange={handleCodeChange} style={{height: '500px', width: '900px', marginBottom: '350px'}} />
-              {view === 'code' && (
-                <button className="bg-gray-600 text-black px-4 py-2 rounded-md absolute top-25 left-20" onClick={copyToClipboard}>
+              <div className="flex justify-end mb-2">
+                <input type="text" id='userInput' className="border border-gray-300 px-2 py-1" style={{ width: '100%' }} placeholder="Enter command" />
+                <button className=" bg-gray-800 text-gray-50 px-4 py-2 rounded-md ml-2" onClick={executeCommand}>
+                  Proceed
+                </button>
+              </div>
+              <div className="relative w-full">
+                <textarea className="w-full h-96 bg-color4 border border-gray-300 text-gray-200" value={code} onChange={handleCodeChange} />
+                <button className="absolute right-0 bottom-0 hover:bg-gray-100 bg-gray-800 text-gray-50 hover:text-black px-4 py-2 rounded-md mb-2 mr-2" onClick={copyToClipboard}>
                   Copy Code
                 </button>
-              )}
+                {isLoading && (
+                  <div className="absolute inset-0 z-10 bg-gray-500 opacity-75 flex items-center justify-center">
+                    <div className="text-white">Loading...</div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -65,15 +125,14 @@ const BusinessMode = () => {
 
   return (
     <div className={`bg-primary ${styles.paddingX} ${styles.flexTop}`}>
-      <div className={`${styles.boxWidth}`}>
-        <Navbar />
-        <div className="flex justify-left mt-20">
-          <button className={`${view === 'code' ? 'bg-purple-500 text-white' : 'bg-white text-purple-500'} px-4 py-2 mr-2 rounded-md`} onClick={() => handleViewChange('code')}>Code</button>
-          <button className={`${view === 'desktop' ? 'bg-purple-500 text-white' : 'bg-white text-purple-500'} px-4 py-2 mr-2 rounded-md`} onClick={() => handleViewChange('desktop')}>Desktop</button>
-          <button className={`${view === 'mobile'? 'bg-purple-500 text-white' : 'bg-white text-purple-500'} px-4 py-2 rounded-md`} onClick={() => handleViewChange('mobile')}>Mobile</button>
-        </div>
-        {renderView()}
+      <div className={`${styles.boxWidth}`}></div>
+      <Navbar />
+      <div className="flex justify-left mt-10">
+        <button className={`tab-button ${view === 'code' && 'active'}`} onClick={() => handleViewChange('code')}>Code</button>
+        <button className={`tab-button ${view === 'desktop' && 'active'}`} onClick={() => handleViewChange('desktop')}>Desktop</button>
+        <button className={`tab-button ${view === 'mobile' && 'active'}`} onClick={() => handleViewChange('mobile')}>Mobile</button>
       </div>
+      {renderView()}
     </div>
   );
 };
