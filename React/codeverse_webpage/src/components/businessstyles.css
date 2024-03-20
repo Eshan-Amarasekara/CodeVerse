@@ -1,0 +1,19 @@
+.tab-button {
+    background-color: gray;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin-right: -1px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .tab-button:hover {
+    background-color: whitesmoke;
+  }
+  
+  .tab-button.active {
+    background-color: #6f42c1;
+    color: white;
+  }
