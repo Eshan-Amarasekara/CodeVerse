@@ -1,108 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>GenAI-Bot</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
     <style>
         /* Resetting some default browser styles */
-        body, h1, h2, h3, p, textarea {
+        body,
+        h1,
+        h2,
+        h3,
+        p,
+        textarea {
             margin: 0;
             padding: 0;
         }
 
         /* Global styles for a clean layout */
         body {
-            font-family: 'Arial', sans-serif;
-            /* background-color: rgba(0, 0, 0, 0.1); */
+            font-family: "Arial", sans-serif;
+            background-color: rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            color: #cbd5e0;
         }
 
         /* Chat container styles */
         .chat-container {
-            background-color: #2d3748;
+            background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            min-width: 90%; /* Adjust the width as needed */
-            min-height: 70%;
-            max-width: 90%; /* Adjust the max-width as needed */
-            margin: 20px; /* Add margin for better spacing */
+            width: 80%;
+            height: 90%;
+            max-width: 1000px;
+            margin: 20px;
+            position: relative;
         }
 
         /* Chatbox styles */
         .chatbox {
-            max-height: 400px; /* Adjust the max-height as needed */
+            max-height: 500px;
             overflow-y: auto;
             padding: 1rem;
-            width: 100%; /* Make the chatbox take full width */
-            
+            width: 100%;
+            height: 900px;
+            border-bottom: 1px solid #e2e8f0;
         }
+
         /* Chat header styles */
         .chat-header {
-            /* background-color: rgb(46, 46, 46); */
+            background-color: #2d3748;
             color: #fff;
             padding: 1rem;
             text-align: center;
-            border: #e2e8f0 2px solid;
             border-radius: 8px 8px 0 0;
         }
-
 
         /* Message styles */
         .message {
             margin-bottom: 1.5rem;
+            overflow-wrap: break-word;
         }
 
         /* User and bot message styles */
-        .userText, .botText {
+        .userText,
+        .botText {
             background-color: #718096;
             border-radius: 8px;
             color: #fff;
-            display: block;
+            display: inline-block;
+            white-space: pre-wrap;
             padding: 0.75rem 1rem;
             max-width: 70%;
             word-wrap: break-word;
             margin-bottom: 0.5rem;
+            vertical-align: top;
         }
 
         .botText {
             background-color: #4c51bf;
+            margin-left: 1rem;
         }
 
         /* User input styles */
         #userInput {
             padding: 1rem;
             border-top: 1px solid #e2e8f0;
+            display: flex;
         }
 
         /* Textarea styles */
         #textInput {
-            width: calc(100% - 20px);
+            flex-grow: 1;
             border: 1px solid #e2e8f0;
             border-radius: 4px;
             padding: 0.75rem;
             font-size: 14px;
             margin-bottom: 0.5rem;
             color: black;
-            resize: vertical; /* Allow vertical resizing */
-            overflow-y: auto; /* Enable vertical scrolling */
-            height: 50px; /* Initial height, adjust as needed */
-            transition: height 1s; /* Add transition for smooth resizing */
+            resize: vertical;
+            overflow-y: auto;
+            transition: height 0.25s;
+            height: 50px;
+        }
+
+        #textInput.expanded {
+            height: 150px;
         }
 
         #textInput:focus {
-            height: 300px; /* Adjust the maximum height as needed */
-            transition: 1s;
+            outline: none;
         }
-
 
         /* Send button styles */
         #sendButton {
@@ -113,6 +125,7 @@
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-left: 1rem;
         }
 
         #sendButton:hover {
@@ -122,70 +135,100 @@
 </head>
 
 <body>
-
-    <div class="chat-container">
-
-        <div class="chat-header">
-            <h2>Learning Assistant</h2>
-        </div>
-
-        <div id="chatbox" class="chatbox">
-            <div class="message">
-                <p class="botText">Hi! I'm your AI-Generative Chatbot</p>
-            </div>
-        </div>
-
-        <div id="userInput">
-            <textarea id="textInput" name="msg" placeholder="Type your message..."></textarea>
-            <button id="sendButton" onclick="getBotResponse()">Send</button>
-        </div>
-        <script>
-            function escapeHtml(text) {
-                var map = {
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '"': '&quot;',
-                    "'": '&#039;'
-                };
-                return text.replace(/[&<>"']/g, function (m) {
-                    return map[m];
-                });
-            }
-
-            function getBotResponse() {
-    var rawText = $("#textInput").val();
-    var escapedText = escapeHtml(rawText);
-    var userHtml = '<p class="userText text-left">' + escapedText + "</p>";
-    $("#textInput").val("");
-    $("#chatbox").append(userHtml);
-    document.getElementById("userInput").scrollIntoView({
-        block: "start",
-        behavior: "smooth"
-    });
-
-    $.get("http://127.0.0.1:5000/get", {
-        msg: rawText
-    }).done(function(data) {
-        var escapedData = escapeHtml(data); // Escape HTML tags in the bot's response
-        var botHtml = '<p class="botText text-left">' + escapedData + "</p>";
-        $("#chatbox").append(botHtml);
-        document.getElementById("userInput").scrollIntoView({
-            block: "start",
-            behavior: "smooth"
-        });
-    });
-}
-
-
-            $("#textInput").keypress(function (e) {
-                if (e.which == 13) {
-                    getBotResponse();
-                }
-            });
-        </script>
-
+<div class="chat-container">
+    <div class="chat-header">
+        <h2>Learning Assistant</h2>
     </div>
-</body>
 
+    <div id="chatbox" class="chatbox">
+        <div class="message">
+            <p class="botText">Hi! I'm your AI-Generative Chatbot</p>
+        </div>
+    </div>
+
+    <div id="userInput">
+        <textarea
+                id="textInput"
+                name="msg"
+                placeholder="Type your message..."
+                onkeydown="handleKeyDown(event)"
+        ></textarea>
+        <button id="sendButton" onclick="getBotResponse()">Send</button>
+    </div>
+
+    <script>
+        function escapeHtml(text) {
+            var map = {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#039;",
+            };
+            return text.replace(/[&<>"']/g, function (m) {
+                return map[m];
+            });
+        }
+    
+        function formatBotResponse(data) {
+            var lines = data.split("\n");
+            var formattedLines = lines.map(function (line) {
+                return "  " + line.replace(/^- /, '');
+            });
+            return formattedLines.join("\n");
+        }
+    
+        function handleInput(event) {
+            var textInput = event.target;
+            textInput.style.height = "auto"; // Reset the height to auto before calculating the new height
+            if (textInput.value === "") {
+                textInput.style.height = "50px"; // Set the height to the standard size when the input is empty
+            } else {
+                textInput.style.height = Math.min(textInput.scrollHeight, 250) + "px"; // Set the height to match the content, but limit to a maximum of 250px
+            }
+        }
+
+        document.getElementById("textInput").addEventListener("input", handleInput);
+
+    
+        function handleKeyDown(event) {
+            var textInput = event.target;
+            textInput.style.height = "auto"; // Reset the height to auto before calculating the new height
+            textInput.style.height = Math.min(textInput.scrollHeight, 250) + "px"; // Set the height to match the content, but limit to a maximum of 150px
+    
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
+                getBotResponse();
+            }
+        }
+    
+        function getBotResponse() {
+            var rawText = $("#textInput").val();
+            var escapedText = escapeHtml(rawText);
+            var userHtml = '<div class="message"><p class="userText">' +
+                escapedText.replace(/\n/g, '<br>') +
+                "</p></div>";
+            $("#textInput").val("");
+            $("#chatbox").append(userHtml);
+            document.getElementById("chatbox").scrollTop = document.getElementById("chatbox").scrollHeight;
+    
+            $.get("http://127.0.0.1:5000/get", {
+                msg: rawText,
+            }).done(function (data) {
+                var formattedData = formatBotResponse(data);
+                var botHtml = '<div class="message"><p class="botText">' +
+                    formattedData +
+                    '</p></div>';
+                $("#chatbox").append(botHtml);
+                document.getElementById("chatbox").scrollTop = document.getElementById("chatbox").scrollHeight;
+            });
+    
+            var textInput = document.getElementById("textInput");
+            textInput.style.height = ""; // Reset the height after sending the message
+        }
+    </script>
+    
+    
+</div>
+</body>
 </html>
