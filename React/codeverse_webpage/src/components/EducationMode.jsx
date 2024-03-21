@@ -78,26 +78,31 @@ useEffect(() => {
       <div className="absolute z-[0] w-[50%] h-[50%] right-0 top-0 blue__gradient" />
       <div className="absolute z-[0] w-[50%] h-[50%] bottom-70 pink__gradient" />
 
-      {/* Buttons Container */}
-      <div className={`absolute z-10 top-20 left-20 ${styles.marginX} ${styles.flexStart}`}>
-        {/* Download button */}
-        <button onClick={downloadHTML} className="bg-purple-500 text-white px-4 py-2 m-2 rounded">
-          Download HTML
-        </button>
-
-        {/* Copy to clipboard button */}
-        <button onClick={copyToClipboard} className="bg-purple-500 text-white px-4 py-2 m-2 rounded">
-          Copy to Clipboard
-        </button>
+      <div className={`absolute z-10 top-20 py-5 right-20 ${styles.marginX} ${styles.flexStart}`}>
 
         {/* New button to toggle ai.html visibility */}
-        <button onClick={toggleAiHtml} className="bg-purple-500 text-white px-4 py-2 m-2 rounded">
+        <button onClick={toggleAiHtml} className="bg-purple-500 hover:bg-purple-800 hover:text-gray-100 text-white px-4 py-2 m-2 rounded">
           Code Explainer
         </button>
+      </div>
+      {/* Buttons Container */}
+      <div className={`absolute z-10 top-20 py-5 left-20 ${styles.marginX} ${styles.flexStart}`}>
+
         {/* Copy success message */}
         {copySuccess && (
           <div className="text-green-500 text-sm mt-2">Copied to Clipboard successfully!</div>
         )}
+                {/* Download button */}
+        <button onClick={downloadHTML} className="hover:bg-gray-100 bg-gray-800 text-gray-50 hover:text-black px-4 py-2 m-2 rounded">
+          Download HTML
+        </button>
+
+        {/* Copy to clipboard button */}
+        <button onClick={copyToClipboard} className="hover:bg-gray-100 bg-gray-800 text-gray-50 hover:text-black px-4 py-2 m-2 rounded">
+          Copy Code
+        </button>
+
+
       </div>
 
       <iframe
