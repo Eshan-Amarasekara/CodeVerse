@@ -1,32 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Navbar from './Navbar';
 import styles from '../style.js';
 import './businessstyles.css';
 
 const BusinessMode = () => {
-  const [view, setView] = useState('code');
+  const [view, setView] = useState('');
   const [code, setCode] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const fetchedCode = useRef(false);
 
-  useEffect(() => {
-    if (view === 'code') {
-      fetchCode();
-    }
-  }, [view]);
+
 
   const fetchCode = async () => {
+    if (fetchedCode.current) {
+      return;
+    }
+
     try {
       const response = await fetch('http://127.0.0.1:5000/business');
+     
       if (!response.ok) {
         throw new Error('Failed to fetch code');
       }
+      console.log('Data sent successfully2');
       const data = await response.text();
       setCode(data);
     } catch (err) {
       console.error('Failed to fetch code: ', err);
       setCode('Failed to fetch code');
     }
+
+    fetchedCode.current = true;
   };
+
+  useEffect(() => {
+    // Fetch code when the component mounts
+    fetchCode();
+   
+  }, []);
+
+  
 
   const handleViewChange = (newView) => {
     setView(newView);
@@ -46,32 +58,37 @@ const BusinessMode = () => {
     }
   };
 
-  const executeCommand = () => {
-    setIsLoading(true);
-    const userInput = document.getElementById('userInput').value; // Assuming you have an input element with the id 'userInput'
+const executeCommand = async () => {
+  const userInput = document.getElementById('userInput').value;
 
-    // Sending data to the backend Flask server
-    fetch('http://127.0.0.1:5000/userinput', {
+  try {
+    const response = await fetch('http://127.0.0.1:5000/userinput', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ data: userInput }), // Adjust the data you want to send as needed
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to send data to server');
-        }
-        // Handle response as needed
-        console.log('Data sent successfully');
-      })
-      .catch(error => {
-        console.error('Error sending data to server:', error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
+      body: JSON.stringify({ data: userInput }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to send data to server');
+    }
+
+    console.log('Data sent successfully');
+
+    // Fetch the updated code after sending the user input
+    const codeResponse = await fetch('http://127.0.0.1:5000/business');
+    if (!codeResponse.ok) {
+      throw new Error('Failed to fetch code');
+    }
+
+    const codeData = await codeResponse.text();
+    setCode(codeData); // Update the code state with the received code
+  } catch (error) {
+    console.error('Error sending data to server:', error);
+    // Handle error if needed
+  }
+};
 
   const renderView = () => {
     if (view === 'desktop') {
@@ -110,11 +127,6 @@ const BusinessMode = () => {
                 <button className="absolute right-0 bottom-0 hover:bg-gray-100 bg-gray-800 text-gray-50 hover:text-black px-4 py-2 rounded-md mb-2 mr-2" onClick={copyToClipboard}>
                   Copy Code
                 </button>
-                {isLoading && (
-                  <div className="absolute inset-0 z-10 bg-gray-500 opacity-75 flex items-center justify-center">
-                    <div className="text-white">Loading...</div>
-                  </div>
-                )}
               </div>
             </div>
           </div>
@@ -128,7 +140,7 @@ const BusinessMode = () => {
       <div className={`${styles.boxWidth}`}></div>
       <Navbar />
       <div className="flex justify-left mt-10">
-        <button className={`tab-button ${view === 'code' && 'active'}`} onClick={() => handleViewChange('code')}>Code</button>
+        <button className={`tab-button ${view === 'code' && 'active'}`} onClick={() => handleViewChange('')}>Code</button>
         <button className={`tab-button ${view === 'desktop' && 'active'}`} onClick={() => handleViewChange('desktop')}>Desktop</button>
         <button className={`tab-button ${view === 'mobile' && 'active'}`} onClick={() => handleViewChange('mobile')}>Mobile</button>
       </div>

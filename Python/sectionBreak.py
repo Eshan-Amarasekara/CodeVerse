@@ -58,7 +58,7 @@ def sectionBreak(img):
 
              operationLocation = response.headers["Operation-Location"]
              operation_id: object = operationLocation.split('/')[-1]
-             time.sleep(5)
+             time.sleep(3)
              result = cv_client.get_read_result(operation_id)
 
 

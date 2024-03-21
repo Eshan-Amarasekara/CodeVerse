@@ -1,9 +1,12 @@
 # C:\flask_dev\flaskreact\app.py
 from flask import Flask, json, request, jsonify
+import json
+from json.decoder import JSONDecodeError
 # import os
 # import urllib.request
 # from werkzeug.utils import secure_filename
 from flask_cors import CORS
+
 
 from codeGen import CodeGen
 import html
@@ -101,6 +104,7 @@ def main():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    open('fullCode.json', 'w').close()
     # check if the post request has the file part
     if 'file' not in request.files:
         resp = jsonify({
@@ -138,7 +142,6 @@ def run():
     return data['me']
 
 
-
 # print(type(data))
 # data.append(" add tailwind css to this. and make it look stunning")
 # print(data)
@@ -161,25 +164,59 @@ def get_bot_response():
     return response
 
 def get_user_input():
-    with open('data.json') as file:
-        d = json.load(file)
-        return (d["data"])
+    json_file_path = "data2.json"  # Replace with your JSON file path
+    result = is_json_null(json_file_path)
+    print(result)
+    if result:
+            return ("")
+    else:
+         with open('data2.json') as file:
+             d = json.load(file)
+             return (d["data"])
 
 def ai_output():
     codedata = run()
-    userText = ('\n'.join(map(str, codedata))+"add tailwindcss this code")
+    userText = ('\n'.join(map(str, codedata))+": Update and generate the above code with tailwind css and make it look more visually appealing")
     response = get_completion2(userText)
     # return str(bot.get_response(userText))
     return response
 
+
+def is_json_null(json_file_path):
+    try:
+        with open(json_file_path, 'r') as f:
+            data = f.read()
+            if not data.strip():  # Check if the file is empty
+                return True
+            else:
+                json_data = json.loads(data)
+                return json_data is None
+    except FileNotFoundError:
+        print("File not found.")
+        return False
+    except JSONDecodeError as e:
+        if e.msg == "Expecting value" and e.doc == "":
+            return True  # JSON file is empty
+        else:
+            print("Invalid JSON format:", e)
+            return False
+
+
+
+
+
 @app.route('/business',methods=['GET'])
 def get_bot_response2():
     userInput = get_user_input()
-    if (len(userInput) == 0):
-        response =ai_output()
+    json_file_path = "data2.json"  # Replace with your JSON file path
+    result = is_json_null(json_file_path)
+    if result:
+        print("JSON file is not null.1111")
+        response = ai_output()
         return response
     else:
-        userText = (get_user_input()+userInput)
+        print("JSON file is not null.")
+        userText = (ai_output()+userInput)
         response = get_completion2(userText)
         # return str(bot.get_response(userText))
         return response
@@ -190,7 +227,7 @@ def get_bot_response2():
 def user_input():
     data = request.json.get('data')  # Extracting JSON data from the request
     if data:
-        with open('data.json', 'w') as file:
+        with open('data2.json', 'w') as file:
             file.write("""{"data":"""+'"'+data+'"'+"}")
         return jsonify({'message': 'JSON data saved successfully'})
     else:
