@@ -73,12 +73,18 @@ class CodeGen:
             Inner_C_Tag = df.loc[row_index, df.columns[3]]
             return Inner_C_Tag
 
-        def count(Class, y1):
-            Count = 0
+        def count(Class, y1,x1):
+            Count = 1
             for next in range(1, len(allList)):
                 Dict3 = ast.literal_eval(allList[next])
-                if Class == Dict3["class"] and y1 >= Dict3['y1']:
-                    Count = Count + 1
+                if (Class == Dict3["class"]) and (y1 >= Dict3['y1']):
+                    if (y1 == Dict3["y1"]):
+                        if (x1 == Dict3["x1"]):
+                            break
+                        else:
+                            Count = Count + 1
+                    else:
+                        Count = Count + 1
             return Count
 
         def inside(Dict):
@@ -108,7 +114,8 @@ class CodeGen:
             dictionary = ast.literal_eval(allList[tag])
             Class1 = dictionary['class']
             y1 = dictionary["y1"]
-            tagNumber = count(Class1, y1)
+            x1 = dictionary["x1"]
+            tagNumber = count(Class1, y1,x1)
             echo = inside(dictionary)
 
         CssData.mustData()
@@ -120,7 +127,7 @@ class CodeGen:
             htmlCodeList.append(css[i])
 
         print(htmlCodeList)
-        open('cssCode.json', 'w').close()
+
         htmlCodeList.append("</style>")
         htmlCodeList.append("</head>")
         htmlCodeList.append("<body>")
@@ -129,7 +136,8 @@ class CodeGen:
             Dict = ast.literal_eval(allList[i])
             Class1 = Dict['class']
             y1 = Dict["y1"]
-            tagNumber = count(Class1, y1)
+            x1 = Dict["x1"]
+            tagNumber = count(Class1, y1,x1)
             echo = inside(Dict)
             if echo == False:
                 continue

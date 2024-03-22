@@ -1,15 +1,54 @@
+import os
 import time
 
 
 def sectionBreak(img):
 
     import json
+    from json.decoder import JSONDecodeError
     from msrest.authentication import CognitiveServicesCredentials
     from azure.cognitiveservices.vision.computervision import ComputerVisionClient
     from azure.cognitiveservices.vision.computervision.models import OperationStatusCodes,VisualFeatureTypes
     import requests
     from PIL import Image ,ImageDraw,ImageFont
     import cv2
+    #Chack fullcode hson file is null
+    def fullcodeFile():
+        try:
+            with open("fullCode.json", 'r') as f:
+                data = f.read()
+                if not data.strip():  # Check if the file is empty
+                    return True  # Return True if file is empty
+        except JSONDecodeError as e:
+            if e.msg == "Expecting value" and e.doc == "":
+                return True  # Return True if JSONDecodeError due to empty file
+
+    # Check if csscode JSON file is empty or does not exist
+    def csscodeFile():
+        try:
+            with open("cssCode.json", 'r') as f:
+                data = f.read()
+                if not data.strip():  # Check if the file is empty
+                    return True  # Return True if file is empty
+        except JSONDecodeError as e:
+            if e.msg == "Expecting value" and e.doc == "":
+                return True  # Return True if JSONDecodeError due to empty file
+
+    # Check if alltxt file is empty
+    def alltxt():
+        return os.stat("all.txt").st_size == 0  # Return True if file size is 0
+
+    Fullcode = fullcodeFile()  # Check if fullCode.json is empty
+    Csscode = csscodeFile()  # Check if cssCode.json is empty
+    Alltxt = alltxt()  # Check if all.txt is empty
+
+    # If any of the files are not empty, clear their contents
+    if not (Fullcode and Csscode and Alltxt):
+        # Clear contents of the files
+        open('fullCode.json', 'w').close()
+        open('cssCode.json', 'w').close()
+        open('all.txt', 'w').close()  # Close all.txt
+
 
     # #import trained data set
     from roboflow import Roboflow
@@ -58,7 +97,7 @@ def sectionBreak(img):
 
              operationLocation = response.headers["Operation-Location"]
              operation_id: object = operationLocation.split('/')[-1]
-             time.sleep(3)
+             time.sleep(5)
              result = cv_client.get_read_result(operation_id)
 
 
@@ -72,10 +111,10 @@ def sectionBreak(img):
          else:
              Dictionary["text0"] = ""
 
-         file= open("all.txt", "a+")
+         file= open("all.txt", "a+",encoding="utf-8")
          file.write(str(Dictionary) + "\n")
          file.close()
-         cv2.destroyAllWindows()
+
 
 def imageHeight():
     import cv2
