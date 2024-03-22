@@ -15,10 +15,17 @@ import {
   Services,
   ServiceTeam,
   LoginPage,
-  SignupPage
+  SignupPage,
+  Slideshow
 } from "./components";
 
-
+const images = [
+  'https://picsum.photos/id/1015/400/300',
+  'https://picsum.photos/id/1016/400/300',
+  'https://picsum.photos/id/1018/400/300',
+  'https://picsum.photos/id/1019/400/300',
+  'https://picsum.photos/id/1020/400/300',
+]
 
 const App = () => (
   <Router>
@@ -33,6 +40,7 @@ const App = () => (
                 <Hero />
                 <Education />
                 <Business />
+                <Slideshow images={images} />
                 <UploadImageForm />
                 <Testimonials />
                 <Services />

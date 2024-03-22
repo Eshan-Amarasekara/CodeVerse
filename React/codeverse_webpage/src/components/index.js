@@ -13,6 +13,7 @@ import Services from "./Services";
 import ServiceTeam from "./ServiceTeam";
 import LoginPage from "./LoginPage";
 import SignupPage from "./SignupPage";
+import Slideshow from "./Slideshow";
 
 
 
@@ -31,5 +32,6 @@ export {
   Services,
   ServiceTeam,
   LoginPage,
-  SignupPage
+  SignupPage,
+  Slideshow
 };

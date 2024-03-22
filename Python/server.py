@@ -59,7 +59,7 @@ def get_completion(prompt, model="ft:gpt-3.5-turbo-0125:personal::91vUW2df"):
     return '\n'.join(formatted_response)
 
 
-def get_completion2(prompt, model="ft:gpt-3.5-turbo-0125:personal::920n73G5"):
+def get_completion2(prompt, model="ft:gpt-3.5-turbo-0125:personal::95dWvD91"):
     #
     # prompt_escaped = html.escape(prompt)
     # prompt_wrapped = f'<code>{prompt_escaped}</code>'
