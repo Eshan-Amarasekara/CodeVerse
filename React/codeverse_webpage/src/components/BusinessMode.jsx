@@ -6,9 +6,9 @@ import './businessstyles.css';
 const BusinessMode = () => {
   const [view, setView] = useState('');
   const [code, setCode] = useState('');
+  const [loading, setLoading] = useState(false); // Add loading state
   const fetchedCode = useRef(false);
-
-
+  const list =[]
 
   const fetchCode = async () => {
     if (fetchedCode.current) {
@@ -17,7 +17,6 @@ const BusinessMode = () => {
 
     try {
       const response = await fetch('http://127.0.0.1:5000/business');
-     
       if (!response.ok) {
         throw new Error('Failed to fetch code');
       }
@@ -33,12 +32,8 @@ const BusinessMode = () => {
   };
 
   useEffect(() => {
-    // Fetch code when the component mounts
     fetchCode();
-   
   }, []);
-
-  
 
   const handleViewChange = (newView) => {
     setView(newView);
@@ -58,37 +53,41 @@ const BusinessMode = () => {
     }
   };
 
-const executeCommand = async () => {
-  const userInput = document.getElementById('userInput').value;
+  const executeCommand = async () => {
+    if (loading) return; // Prevent executing command while loading
 
-  try {
-    const response = await fetch('http://127.0.0.1:5000/userinput', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ data: userInput }),
-    });
+    setLoading(true); // Set loading state to true
 
-    if (!response.ok) {
-      throw new Error('Failed to send data to server');
+    const userInput = document.getElementById('userInput').value;
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/userinput', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data: userInput }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send data to server');
+      }
+
+      console.log('Data sent successfully');
+
+      const codeResponse = await fetch('http://127.0.0.1:5000/business');
+      if (!codeResponse.ok) {
+        throw new Error('Failed to fetch code');
+      }
+
+      const codeData = await codeResponse.text();
+      setCode(codeData);
+    } catch (error) {
+      console.error('Error sending data to server:', error);
+    } finally {
+      setLoading(false); // Set loading state to false after execution is done
     }
-
-    console.log('Data sent successfully');
-
-    // Fetch the updated code after sending the user input
-    const codeResponse = await fetch('http://127.0.0.1:5000/business');
-    if (!codeResponse.ok) {
-      throw new Error('Failed to fetch code');
-    }
-
-    const codeData = await codeResponse.text();
-    setCode(codeData); // Update the code state with the received code
-  } catch (error) {
-    console.error('Error sending data to server:', error);
-    // Handle error if needed
-  }
-};
+  };
 
   const renderView = () => {
     if (view === 'desktop') {
@@ -114,23 +113,23 @@ const executeCommand = async () => {
     } else {
       return (
         <div className={"  text-gray-500 flex flex-col items-center justify-center border-purple-500"} style={{ minHeight: "85vh" }}>
-          <div className="container mx-auto">
-            <div className="text-center">
-              <div className="flex justify-end mb-2">
-                <input type="text" id='userInput' className="border border-gray-300 px-2 py-1" style={{ width: '100%' }} placeholder="Enter command" />
-                <button className=" bg-gray-800 text-gray-50 px-4 py-2 rounded-md ml-2" onClick={executeCommand}>
-                  Proceed
-                </button>
-              </div>
-              <div className="relative w-full">
-                <textarea className="w-full h-96 bg-color4 border border-gray-300 text-gray-200" value={code} onChange={handleCodeChange} />
-                <button className="absolute right-0 bottom-0 hover:bg-gray-100 bg-gray-800 text-gray-50 hover:text-black px-4 py-2 rounded-md mb-2 mr-2" onClick={copyToClipboard}>
-                  Copy Code
-                </button>
-              </div>
+        <div className="container mx-auto">
+          <div className="text-center">
+            <div className="flex justify-end mb-2">
+              <input type="text" id='userInput' className="border border-gray-300 px-2 py-1" style={{ width: '100%' }} placeholder="Enter command" />
+              <button className={`bg-gray-800 text-gray-50 px-4 py-2 rounded-md ml-2 ${loading ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={executeCommand} disabled={loading}
+>                {loading ? 'Loading...' : 'Proceed'}
+              </button>
+            </div>
+            <div className="relative w-full">
+              <textarea className="w-full h-96 bg-color4 border border-gray-300 text-gray-200" value={code} onChange={handleCodeChange} />
+              <button className="absolute right-0 bottom-0 hover:bg-gray-100 bg-gray-800 text-gray-50 hover:text-black px-4 py-2 rounded-md mb-2 mr-2" onClick={copyToClipboard}>
+                Copy Code
+              </button>
             </div>
           </div>
         </div>
+      </div>
       );
     }
   };
@@ -145,6 +144,7 @@ const executeCommand = async () => {
         <button className={`tab-button ${view === 'mobile' && 'active'}`} onClick={() => handleViewChange('mobile')}>Mobile</button>
       </div>
       {renderView()}
+
     </div>
   );
 };

@@ -17,3 +17,11 @@
     background-color: #6f42c1;
     color: white;
   }
+  .cursor-not-allowed {
+    cursor: not-allowed;
+  }
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  
