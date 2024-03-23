@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
+<<<<<<< Updated upstream
 import {  useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
+=======
+import { useNavigate } from 'react-router-dom';
+import Header from './Header.jsx';
+>>>>>>> Stashed changes
 import styles from '../style.js';
 import './businessstyles.css';
 
@@ -90,6 +95,10 @@ const BusinessMode = () => {
     }
   };
 
+  const navigateToEducationMode = () => {
+    Navigate('/EducationMode');
+  };
+
   const renderView = () => {
     if (view === 'desktop') {
       return (
@@ -135,19 +144,26 @@ const BusinessMode = () => {
     }
   };
 
+<<<<<<< Updated upstream
 const navigate = useNavigate();
 navigate('/EducationMode');
+=======
+>>>>>>> Stashed changes
 
 
   return (
     <div className={`bg-primary ${styles.paddingX} ${styles.flexTop}`}>
       <div className={`${styles.boxWidth}`}></div>
-      <Navbar />
+      <Header/>
       <div className="flex justify-left mt-10">
         <button className={`tab-button ${view === 'code' && 'active'}`} onClick={() => handleViewChange('')}>Code</button>
         <button className={`tab-button ${view === 'desktop' && 'active'}`} onClick={() => handleViewChange('desktop')}>Desktop</button>
         <button className={`tab-button ${view === 'mobile' && 'active'}`} onClick={() => handleViewChange('mobile')}>Mobile</button>
+<<<<<<< Updated upstream
         <button className="tab-button" onClick={navigate}>Education Mode</button> {/* Button for navigation to Education Mode */}
+=======
+        <button className="tab-button" onClick={navigateToEducationMode}>Education Mode</button> {/* Button for navigation to Education Mode */}
+>>>>>>> Stashed changes
       </div>
       {renderView()}
     </div>

@@ -1,13 +1,13 @@
 import React from 'react'
 import "./services.css";
 import styles from '../style';
-import Navbar from './Navbar';
+import Header from './Header.jsx';
+
 
 const ServiceTeam = () => {
   return (
     <div className={`bg-primary ${styles.paddingX} ${styles.flexTop}`}>
-                    <Navbar />
-
+<Header/>
         <div className={`${styles.boxWidth} `}>
           <div className='team'>
             {/* Team Item 1 */}

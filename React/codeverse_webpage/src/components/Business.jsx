@@ -1,6 +1,5 @@
 import { features2 } from "../constants";
 import styles, { layout } from "../style";
-import Button from "./Button";
 
 
 
@@ -34,7 +33,6 @@ const Business = () =>  (
       Turn your hand-drawn ideas into visually appealing HTML codes effortlessly enriched with Tailwind CSS!
       </p>
 
-      <Button styles={`mt-10`} />
       
     </div>
 
