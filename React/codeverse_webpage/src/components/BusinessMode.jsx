@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import {  useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import styles from '../style.js';
 import './businessstyles.css';
@@ -6,9 +7,9 @@ import './businessstyles.css';
 const BusinessMode = () => {
   const [view, setView] = useState('');
   const [code, setCode] = useState('');
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
   const fetchedCode = useRef(false);
-  const list =[]
+  const Navigate = useNavigate(); // Initialize useHistory hook
 
   const fetchCode = async () => {
     if (fetchedCode.current) {
@@ -54,9 +55,9 @@ const BusinessMode = () => {
   };
 
   const executeCommand = async () => {
-    if (loading) return; // Prevent executing command while loading
+    if (loading) return;
 
-    setLoading(true); // Set loading state to true
+    setLoading(true);
 
     const userInput = document.getElementById('userInput').value;
 
@@ -85,7 +86,7 @@ const BusinessMode = () => {
     } catch (error) {
       console.error('Error sending data to server:', error);
     } finally {
-      setLoading(false); // Set loading state to false after execution is done
+      setLoading(false);
     }
   };
 
@@ -134,6 +135,10 @@ const BusinessMode = () => {
     }
   };
 
+const navigate = useNavigate();
+navigate('/EducationMode');
+
+
   return (
     <div className={`bg-primary ${styles.paddingX} ${styles.flexTop}`}>
       <div className={`${styles.boxWidth}`}></div>
@@ -142,9 +147,9 @@ const BusinessMode = () => {
         <button className={`tab-button ${view === 'code' && 'active'}`} onClick={() => handleViewChange('')}>Code</button>
         <button className={`tab-button ${view === 'desktop' && 'active'}`} onClick={() => handleViewChange('desktop')}>Desktop</button>
         <button className={`tab-button ${view === 'mobile' && 'active'}`} onClick={() => handleViewChange('mobile')}>Mobile</button>
+        <button className="tab-button" onClick={navigate}>Education Mode</button> {/* Button for navigation to Education Mode */}
       </div>
       {renderView()}
-
     </div>
   );
 };

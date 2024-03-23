@@ -74,9 +74,9 @@ useEffect(() => {
   return (
     <div className={`bg-primary ${styles.paddingX} ${styles.flexTop}`}>
       <div className={`${styles.boxWidth}`}></div>
-      <Navbar />
-      <div className="absolute z-[0] w-[50%] h-[50%] right-0 top-0 blue__gradient" />
+      <div className="absolute z-[0] w-[50%] h-[50%] right-0 top-10 blue__gradient" />
       <div className="absolute z-[0] w-[50%] h-[50%] bottom-70 pink__gradient" />
+      <Navbar />
 
       <div className={`absolute z-10 top-20 py-5 right-20 ${styles.marginX} ${styles.flexStart}`}>
 
@@ -130,6 +130,7 @@ useEffect(() => {
           style={{ position: 'static', zIndex: '1', top: '35px' }}
         ></iframe>
       )}
+      
     </div>
   );
 };
