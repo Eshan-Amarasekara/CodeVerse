@@ -38,25 +38,12 @@ const LoginPage = () => {
   const handlePasswordReset = async (e) => {
     e.preventDefault();
     try {
-<<<<<<< Updated upstream
-      if (auth.currentUser) { // Check if user is authenticated
-        await auth.sendPasswordResetEmail(resetEmail);
-        setError("Password reset email sent. Check your inbox.");
-      } else {
-        setError("You need to be logged in to reset your password."); // Error message for non-authenticated user
-      }
-=======
       await auth.sendPasswordResetEmail(resetEmail);
       setError("Password reset email sent. Check your inbox. (Emails sent only for sign up Users)");
->>>>>>> Stashed changes
     } catch (err) {
       setError(err.message);
     }
   };
-<<<<<<< Updated upstream
-  
-=======
->>>>>>> Stashed changes
 
   const toggleResetForm = () => {
     setShowResetForm(!showResetForm);
@@ -77,11 +64,7 @@ const LoginPage = () => {
     <div className="relative flex items-center justify-center h-screen">
       <div className="absolute z-[0] w-[70%] h-[70%] right-0 top-10 blue__gradient" />
       <div className="absolute z-[0] w-[50%] h-[60%] left-20 bottom-40 pink__gradient" />
-<<<<<<< Updated upstream
-      <div className="relative z-10 bg-primary bg-opacity-40 p-12 rounded-3xl shadow-lg" style={{ width: "500px" }}> {/* Adjust the width here */}
-=======
       <div className="relative z-10 bg-primary bg-opacity-60 p-12 rounded-3xl shadow-lg" style={{ width: "500px" }}> {/* Adjust the width here */}
->>>>>>> Stashed changes
         <h1 className={styles.heading2} >
           <span className="text-gradient">Login</span>
         </h1>
@@ -139,21 +122,13 @@ const LoginPage = () => {
             </div>
             <button
               type="submit"
-<<<<<<< Updated upstream
-              className={`${styles.paragraph} bg-gray-100 text-primary py-2 px-4 mt-2 hover:bg-secondary transition-all duration-300 focus:outline-none focus:ring focus:border-secondary transform hover:scale-105 shadow-md rounded-md`}
-=======
               className={`${styles.paragraph} bg-gray-100 text-primary py-2 px-4 mt-2 hover:bg-purple-800 transition-all duration-300 focus:outline-none focus:ring focus:border-secondary transform hover:scale-105 shadow-md rounded-md`}
->>>>>>> Stashed changes
             >
               Reset Password
             </button>
             <button
               onClick={toggleResetForm}
-<<<<<<< Updated upstream
-              className={`${styles.paragraph} text-primary underline hover:text-purple-800 focus:outline-none mt-2`}
-=======
               className={`${styles.paragraph} text-white underline hover:text-purple-800 focus:outline-none mt-2`}
->>>>>>> Stashed changes
             >
               Cancel
             </button>
