@@ -104,7 +104,7 @@ def main():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    open('fullCode.json', 'w').close()
+    # open('fullCode.json', 'w').close()
     # check if the post request has the file part
     if 'file' not in request.files:
         resp = jsonify({
@@ -176,6 +176,9 @@ def get_user_input():
 
 def ai_output():
     codedata = run()
+    if codedata is None:
+        return "Error: run() returned None"
+
     userText = ('\n'.join(map(str, codedata))+": Update and generate the above code with tailwind css and make it look more visually appealing")
     response = get_completion2(userText)
     # return str(bot.get_response(userText))
