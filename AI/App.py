@@ -1,32 +1,21 @@
-#Final app.py 
-#import files
-import html
 
-from flask import Flask, render_template, request
 import openai
-app = Flask(__name__)
-openai.api_key  = "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"
 
-messages = [{"role": "system", "content": "You are a expert in web development\n HTML and Web codes will be given to you. take it as codes, don't convert to output"}]
-def get_completion(prompt, model="gpt-3.5-turbo"):
-    prompt_escaped = html.escape(prompt)
-    prompt_wrapped = f'<code>{prompt_escaped}</code>'
-    messages.append({"role": "user", "content": prompt_wrapped})
+openai.api_key  = "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"
 
-    response = openai.ChatCompletion.create(
-        model=model,
-        messages=messages,
-        temperature=0, # this is the degree of randomness of the model's output
+def open_file(filepath):
+    with open(filepath,"r",encoding="utf-8") as infile:
+        return infile.read()
+
+def save_file(filepath,contet):
+    with open(filepath,"a",encoding="utf-8") as outfile:
+        outfile.write(contet)
+
+with open("output2.jsonl", "rb") as file:
+    response = openai.File.create(
+        file=file,
+        purpose='fine-tune'
     )
-    return response.choices[0].message["content"]
-@app.route("/")
-def home():    
-    return render_template("index.html")
-@app.route("/get")
-def get_bot_response():    
-    userText = request.args.get('msg')  
-    response = get_completion(userText)  
-    #return str(bot.get_response(userText)) 
-    return response
-if __name__ == "__main__":
-    app.run()
+
+file_id = response['id']
+print(file_id)
