@@ -16,7 +16,6 @@ import {
   ServiceTeam,
   LoginPage,
   SignupPage,
-  Slideshow
 } from "./components";
 
 const App = () => (
@@ -32,7 +31,10 @@ const App = () => (
                 <Hero/>
                 <Education/>
                 <Business/>
+<<<<<<< Updated upstream
                 <Slideshow/>
+=======
+>>>>>>> Stashed changes
                 <UploadImageForm/>
                 <Testimonials/>
                 <Services/>
