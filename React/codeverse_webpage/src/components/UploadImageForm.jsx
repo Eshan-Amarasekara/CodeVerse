@@ -5,7 +5,9 @@ import styles, { layout } from "../style";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";  // Make sure to import your Firebase configuration file
 
+// Component for uploading images
 const UploadImageForm = () => {
+  // State variables for image, loading state, response message, and mode selection
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [responseMsg, setResponseMsg] = useState({
@@ -18,15 +20,19 @@ const UploadImageForm = () => {
   const [educationMode, setEducationMode] = useState(false);
   const [businessMode, setBusinessMode] = useState(false);
 
+  // Navigate function for redirecting after image upload
   const navigate = useNavigate();
+  // Firebase authentication state
   const [user, loadingUser] = useAuthState(auth);
 
+  // Effect to show buttons after successful image upload
   useEffect(() => {
     if (responseMsg.status === "success" && user) {
       setShowButtons(true);
     }
   }, [responseMsg, user]);
 
+  // Handler for image file change
   const handleChange = (e) => {
     const file = e.target.files[0];
     fileValidate(file);
@@ -36,6 +42,7 @@ const UploadImageForm = () => {
     setBusinessMode(false);
   };
 
+  // Handler for form submission
   const submitHandler = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -43,6 +50,7 @@ const UploadImageForm = () => {
     const data = new FormData();
     data.append("file", image);
 
+    // Post image data to the server
     axios.post("http://127.0.0.1:5000/upload", data)
       .then((response) => {
         if (response.status === 201) {
@@ -56,7 +64,8 @@ const UploadImageForm = () => {
             setLoading(false);
           }, 1000);
 
-          document.querySelector("#Upload").reset(); // Updated line
+          // Reset form after successful upload
+          document.querySelector("#Upload").reset();
         }
       })
       .catch((error) => {
@@ -71,6 +80,7 @@ const UploadImageForm = () => {
       });
   };
 
+  // Validate file type
   const fileValidate = (file) => {
     if (
       file && (
@@ -91,21 +101,24 @@ const UploadImageForm = () => {
     }
   };
 
+  // Handler for education mode button click
   const handleEducationMode = () => {
     setEducationMode(true);
     navigate('/EducationMode');
   };
 
+  // Handler for business mode button click
   const handleBusinessMode = () => {
     setBusinessMode(true);
     navigate('/BusinessMode');
   };
 
+  // Redirect user to login page
   const redirectToLogin = () => {
-    // Redirect the user to the login page
     navigate('/login');
   };
 
+  // Render upload form
   return (
     <section id="" className={`${layout.section} flex-col relative ` }>
       <div className="container mx-auto my-10 h-screen flex items-center justify-center">

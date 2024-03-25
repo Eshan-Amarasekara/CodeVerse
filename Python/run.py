@@ -4,4 +4,4 @@ import subprocess
 subprocess.run(["python", "codeGen.py"])
 
 # Start Flask server
-subprocess.run(["python", "server.py"])
+subprocess.run(["python", "app.py"])
