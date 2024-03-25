@@ -51,7 +51,7 @@ const UploadImageForm = () => {
     data.append("file", image);
 
     // Post image data to the server
-    axios.post("http://127.0.0.1:5000/upload", data)
+    axios.post("http://127.0.0.1:8000/upload", data)
       .then((response) => {
         if (response.status === 201) {
           setResponseMsg({
