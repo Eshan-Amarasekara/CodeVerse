@@ -41,8 +41,9 @@ def test_user_input(client):
     assert response.status_code == 200
     assert b'JSON data saved successfully' in response.data
 
-def test_business_endpoint(client):
-    response = client.get('/business')
-    assert response.status_code == 200
-    expected_response = b'<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>My First HTML Page</title>\n    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">\n</head>\n<body>\n    <nav class="bg-gray-800 text-white p-4">\n        <a href="#" class="hover:underline">Link 1</a>\n        <a href="#" class="hover:underline">Link 2</a>\n        <a href="#" class="hover:underline">Link 3</a>\n        <a href="#" class="hover:underline">Link 4</a>\n        <a href="#" class="hover:underline">Link 5</a>\n    </nav>\n\n    <div class="bg-white shadow-md rounded-md p-4 m-4">\n        <h2 class="text-2xl font-bold text-gray-800">Card 1</h2>\n        <p class="text-gray-600">This is the content of Card 1.</p>\n        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-2">Button 1</button>\n    </div>\n\n    <div class="bg-white shadow-md rounded-md p-4 m-4">\n        <h2 class="text-2xl font-bold text-gray-800">Card 2</h2>\n        <p class="text-gray-600">This is the content of Card 2.</p>\n        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-2">Button 2</button>\n    </div>\n\n    <div class="bg-white shadow-md rounded-md p-4 m-4">\n        <h2 class="text-2xl font-bold text-gray-800">Card 3</h2>\n        <p class="text-gray-600">This is the content of Card 3.</p>\n        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-2">Button 3</button>\n    </div>\n\n    <div class="bg-white shadow-md rounded-md p-4 m-4">\n        <h2 class="text-2xl font-bold text-gray-800">Card 4</h2>\n        <p class="text-gray-600">This is the content of Card 4.</p>\n        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-2">Button 4</button>\n    </div>\n\n    <div class="bg-white shadow-md rounded-md p-4 m-4">\n        <h2 class="text-2xl font-bold text-gray-800">Card 5</h2>\n        <p class="text-gray-600">This is the content of Card 5.</p>\n        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-2">Button 5</button>\n    </div>\n\n    <footer class="bg-gray-800 text-white p-4 text-center">\xc2\xa9 2022 Your Company</footer>\n</body>\n</html>\n'
-    assert expected_response in response.data
+
+def test_business_endpoint(self):
+    # Remove 'self' from here
+    response = app.test_client().get('/business')
+    expected_response = b'<h1>Welcome to the Business Page</h1>\n<p>This is the business page.</p>'
+    self.assertEqual(response.data, expected_response)
