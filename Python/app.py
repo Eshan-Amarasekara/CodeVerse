@@ -152,10 +152,6 @@ def me():
     htmlCode ={"me":run()}
     return htmlCode
 
-def me2():
-    data = run()
-    htmlCode ={"me":data}
-    return htmlCode
 
 # Route to get response from the chatbot
 @app.route("/get")
@@ -244,13 +240,6 @@ def user_input():
 
 
 
-
-@app.route("/get2")
-def get_bot_response3():
-    userText = request.args.get('msg')
-    response = get_completion2(userText)
-    #return str(bot.get_response(userText))
-    return response
 
 # Run the Flask app
 if __name__ == '__main__':
