@@ -212,7 +212,7 @@
             $("#chatbox").append(userHtml);
             document.getElementById("chatbox").scrollTop = document.getElementById("chatbox").scrollHeight;
     
-            $.get("http://127.0.0.1:5000/get", {
+            $.get("http://127.0.0.1:8000/get", {
                 msg: rawText,
             }).done(function (data) {
                 var formattedData = formatBotResponse(data);
