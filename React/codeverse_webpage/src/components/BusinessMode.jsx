@@ -19,7 +19,7 @@ const BusinessMode = () => {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/business');
+      const response = await fetch('http://127.0.0.1:8000/business');
       if (!response.ok) {
         throw new Error('Failed to fetch code');
       }
@@ -69,7 +69,7 @@ const BusinessMode = () => {
     const userInput = document.getElementById('userInput').value;
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/userinput', {
+      const response = await fetch('http://127.0.0.1:8000/userinput', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ const BusinessMode = () => {
 
       console.log('Data sent successfully');
 
-      const codeResponse = await fetch('http://127.0.0.1:5000/business');
+      const codeResponse = await fetch('http://127.0.0.1:8000/business');
       if (!codeResponse.ok) {
         throw new Error('Failed to fetch code');
       }

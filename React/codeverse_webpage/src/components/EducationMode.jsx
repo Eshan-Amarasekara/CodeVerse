@@ -13,7 +13,7 @@ const EducationMode = () => {
 
   // Effect to fetch HTML code on component mount
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/me') // Fetching HTML code
+    fetch('http://127.0.0.1:8000/me') // Fetching HTML code
       .then(response => response.json())
       .then(data => {
         const htmlString = data.me.join('\n'); // Joining HTML array into a string
@@ -38,7 +38,7 @@ const EducationMode = () => {
   // Function to download HTML code
   const downloadHTML = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/me'); // Fetching HTML code
+      const response = await fetch('http://127.0.0.1:8000/me'); // Fetching HTML code
       const data = await response.json(); // Parsing JSON response
       const htmlString = data.me.join('\n'); // Joining HTML array into a string
 
@@ -58,7 +58,7 @@ const EducationMode = () => {
   // Function to copy HTML code to clipboard
   const copyToClipboard = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/me'); // Fetching HTML code
+      const response = await fetch('http://127.0.0.1:8000/me'); // Fetching HTML code
       const data = await response.json(); // Parsing JSON response
       const htmlString = data.me.join('\n'); // Joining HTML array into a string
 
