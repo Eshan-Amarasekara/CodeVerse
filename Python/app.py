@@ -24,7 +24,7 @@ messages = [{"role": "system", "content": "You are an expert in web development"
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-
+# Function to generate completion using OpenAI Chat API
 def get_completion(prompt, model="ft:gpt-3.5-turbo-0125:personal::91vUW2df"):
     lines = prompt.split('.')
     prompt_escaped = html.escape(prompt)
@@ -58,7 +58,7 @@ def get_completion(prompt, model="ft:gpt-3.5-turbo-0125:personal::91vUW2df"):
 
     return '\n'.join(formatted_response)
 
-
+# Another function to generate completion using OpenAI Chat API (presumably for different purposes)
 def get_completion2(prompt, model="ft:gpt-3.5-turbo-0125:personal::95dWvD91"):
     #
     # prompt_escaped = html.escape(prompt)
@@ -92,16 +92,16 @@ def get_completion2(prompt, model="ft:gpt-3.5-turbo-0125:personal::95dWvD91"):
 
     return '\n'.join(formatted_response)
 
-
+# Function to check if the uploaded file has an allowed extension
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
+# Route to the homepage
 @app.route('/')
 def main():
     return 'Homepage'
 
-
+# Route to handle file upload
 @app.route('/upload', methods=['POST'])
 def upload_file():
     # open('fullCode.json', 'w').close()
@@ -136,6 +136,7 @@ def upload_file():
         resp.status_code = 400
         return resp
 
+# Function to load data from a JSON file
 def run():
     f = open('fullCode.json')
     data = json.load(f)
@@ -156,6 +157,7 @@ def me2():
     htmlCode ={"me":data}
     return htmlCode
 
+# Route to get response from the chatbot
 @app.route("/get")
 def get_bot_response():
     userText = request.args.get('msg')
@@ -163,6 +165,8 @@ def get_bot_response():
     #return str(bot.get_response(userText))
     return response
 
+
+# Function to get user input from a JSON file
 def get_user_input():
     json_file_path = "data2.json"  # Replace with your JSON file path
     result = is_json_null(json_file_path)
@@ -174,6 +178,8 @@ def get_user_input():
              d = json.load(file)
              return (d["data"])
 
+
+# Function to generate AI output
 def ai_output():
     codedata = run()
     if codedata is None:
@@ -184,7 +190,7 @@ def ai_output():
     # return str(bot.get_response(userText))
     return response
 
-
+# Function to check if a JSON file is null
 def is_json_null(json_file_path):
     try:
         with open(json_file_path, 'r') as f:
@@ -207,7 +213,7 @@ def is_json_null(json_file_path):
 
 
 
-
+# Route to get response from the chatbot based on user input and JSON data
 @app.route('/business',methods=['GET'])
 def get_bot_response2():
     userInput = get_user_input()
@@ -225,7 +231,7 @@ def get_bot_response2():
         return response
 
 
-
+# Route to receive user input in JSON format
 @app.route('/userinput',methods=['POST'])
 def user_input():
     data = request.json.get('data')  # Extracting JSON data from the request
@@ -246,5 +252,6 @@ def get_bot_response3():
     #return str(bot.get_response(userText))
     return response
 
+# Run the Flask app
 if __name__ == '__main__':
     app.run(debug=False,port=8000)
