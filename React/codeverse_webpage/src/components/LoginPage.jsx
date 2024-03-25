@@ -1,73 +1,86 @@
 import React, { useState } from "react";
-import { auth } from "./firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
-import styles from "../style"; // Import your Tailwind CSS styles
-import { GoogleAuthProvider } from "firebase/auth";
-import GoogleLogo from '../Google.svg'; // Import the Google logo SVG file
+import { auth } from "./firebase"; 
+import { useAuthState } from "react-firebase-hooks/auth"; 
+import { useNavigate } from "react-router-dom"; 
+import styles from "../style";
+import { GoogleAuthProvider } from "firebase/auth"; // Import Google authentication provider from Firebase
+import GoogleLogo from '../Google.svg';
 
+// Define the Login Page component
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // Define state variables
+  const [email, setEmail] = useState(""); // State for email input
+  const [password, setPassword] = useState(""); // State for password input
   const [resetEmail, setResetEmail] = useState(""); // State to handle email input for password reset
   const [showResetForm, setShowResetForm] = useState(false); // State to control visibility of password reset form
-  const [error, setError] = useState("");
-  const [user, loading] = useAuthState(auth);
-  const navigate = useNavigate();
+  const [error, setError] = useState(""); // State to handle error messages
+  const [user, loading] = useAuthState(auth); // State to track user authentication status
+  const navigate = useNavigate(); // Function for navigation
 
+  // Function to handle email/password login
   const handleLogin = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
     try {
-      await auth.signInWithEmailAndPassword(email, password);
-      navigate("/");
+      await auth.signInWithEmailAndPassword(email, password); // Sign in with email and password
+      navigate("/"); // Redirect to the main page upon successful login
     } catch (err) {
-      setError(err.message);
+      setError(err.message); // Set error message if login fails
     }
   };
 
+  // Function to handle Google login
   const handleGoogleLogin = async () => {
     try {
-      const provider = new GoogleAuthProvider();
-      await auth.signInWithPopup(provider);
-      navigate("/");
+      const provider = new GoogleAuthProvider(); // Create Google authentication provider
+      await auth.signInWithPopup(provider); // Sign in with Google popup
+      navigate("/"); // Redirect to the main page upon successful login
     } catch (err) {
-      setError(err.message);
+      setError(err.message); // Set error message if Google login fails
     }
   };
 
+  // Function to handle password reset
   const handlePasswordReset = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
     try {
-      await auth.sendPasswordResetEmail(resetEmail);
-      setError("Password reset email sent. Check your inbox. (Emails sent only for sign up Users)");
+      await auth.sendPasswordResetEmail(resetEmail); // Send password reset email
+      setError("Password reset email sent. Check your inbox. (Emails sent only for sign up Users)"); // Set success message
     } catch (err) {
-      setError(err.message);
+      setError(err.message); // Set error message if password reset fails
     }
   };
 
+  // Function to toggle password reset form visibility
   const toggleResetForm = () => {
-    setShowResetForm(!showResetForm);
+    setShowResetForm(!showResetForm); // Toggle visibility of password reset form
     setError(""); // Clear error when toggling the form
   };
 
+  // Render loading message while authentication is in progress
   if (loading) {
     return <div className={`${styles.flexCenter} bg-gray-100 h-screen`}>Loading...</div>;
   }
 
   // Check if the user is already logged in and redirect to the main page
   if (user) {
-    navigate("/");
-    return null;
+    navigate("/"); // Redirect to the main page if user is already authenticated
+    return null; // Return null if redirecting
   }
 
+  // Return the login form JSX
   return (
     <div className="relative flex items-center justify-center h-screen">
+      {/* Background gradients */}
       <div className="absolute z-[0] w-[70%] h-[70%] right-0 top-10 blue__gradient" />
       <div className="absolute z-[0] w-[50%] h-[60%] left-20 bottom-40 pink__gradient" />
+      
+      {/* Login form */}
       <div className="relative z-10 bg-primary bg-opacity-60 p-12 rounded-3xl shadow-lg" style={{ width: "500px" }}> {/* Adjust the width here */}
-        <h1 className={styles.heading2} >
+        <h1 className={styles.heading2}>
           <span className="text-gradient">Login</span>
         </h1>
+        
+        {/* Email and password input fields */}
         <form onSubmit={handleLogin} className={`${styles.marginY} mt-6`}>
           <label className={`${styles.paragraph} text-white`}>Email</label>
           <div className="flex items-center mt-2">
@@ -145,7 +158,7 @@ const LoginPage = () => {
             <img
               src={GoogleLogo}
               alt="Google Logo"
-              className="h-6 w-6 mr-2 " // Adjust the size as needed
+              className="h-6 w-6 mr-2 " 
             />
             Sign Up with Google
           </div>
@@ -157,7 +170,6 @@ const LoginPage = () => {
         </p>
       </div>
 
-      {/* Add the overlay to make the video darker */}
       <div className="absolute inset-0 bg-black opacity-30 "></div>
     </div>
   );

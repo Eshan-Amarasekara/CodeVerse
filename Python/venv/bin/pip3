@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' "/Users/chamiduhimantha/Desktop/flask imaginecup/venv/bin/python" "$0" "$@"
-' '''
+#!/Users/chamiduhimantha/Desktop/Github/CodeVerse-BackEnd/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
